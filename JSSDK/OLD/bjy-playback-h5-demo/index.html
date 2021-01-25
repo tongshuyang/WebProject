@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <title>Demo 示例</title>
+        <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+        <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="icomoon/style.css"/>
+        <link rel="stylesheet" type="text/css" href="./src/css/style.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/classroom/classroom.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/loading/playback/Loading.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userList/UserList.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageList/MessageList.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/notice/Notice.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageSender/MessageSender.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/setting/menu/menu.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/newWhiteboard/whiteboard.css"/>
+    </head>
+    <body>
+        <div class="main-container">
+            <div id="video-player">
+                <video id="bjy-player-teacher"
+                       x5-playsinline="true"
+                       x-webkit-airplay="allow"
+                       webkit-playsinline="true"
+                       playsinline="true"
+                       controls>
+                </video>
+                <!-- 播放器幕布，为了好看，当未创建播放器时提供一个界面 -->
+                <div id="player-screen">
+                    <img class="picture" src="./src/img/picture.jpg">
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="list-section">
+                    <div class="tab">
+                        <span id="btn-whiteboard" class="tab-list tab-select">白板</span>
+                        <span id="btn-user-list" class="tab-list">用户列表</span>
+                        <span id="btn-message-list" class="tab-list">消息列表</span>
+                    </div>
+                    <div class="notice-placeholder"></div>
+                    <div class="tab-content">
+                        <div class="tab-item">
+                            <div id="whiteboard">
+                                <div class="placeholder"></div>
+                            </div>
+
+                            <button id="fullscreen-btn">全屏</button>
+
+                            <div id="barrage"></div>
+                            <div class="barrage-tool">
+                                <label style="color: white">
+                                    当前状态：<small class="status badge badge-pill badge-default"></small>
+                                </label>
+
+                                <button id="btn-open">
+                                    开启弹幕
+                                </button>
+
+                                <button id="btn-close">
+                                    关闭弹幕
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div id="user-list">
+                                <div class="placeholder"></div>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div id="message-list">
+                                <div class="placeholder"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="loading">
+            <div class="placeholder"></div>
+        </div>
+        <script src="./base/0.0.1/src/base.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/classroom/classroom.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/cef/cef.js"></script>
+
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userList/UserList.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageSender/MessageSender.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/player.js"></script>
+
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/core/Player.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/extension/html.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/extension/flash.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/barrage/Barrage.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageList/MessageList.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/notice/Notice.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/setting/menu/menu.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userSpeak.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/newWhiteboard/whiteboard.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userPublish.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userStatus.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/playback/playback.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/loading/playback/Loading.js"></script>
+        <script src="//www.baijiayun.com/m/playback/dep/dplayer/1.25/flv.min.js"></script>
+
+        <script>
+            require.config({
+                baseUrl: './src'
+            });
+            require(
+                ['main', 'userPanel', 'barrage', 'loading', 'messagePanel', 'noticePanel', 'playerPanel', 'roleMap', 'whiteboard'],
+                function (main) {
+                    main.init();
+                }
+            );
+        </script>
+    </body>
+</html>

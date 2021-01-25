@@ -1,0 +1,190 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    border: 1px solid #aaa;
+}
+
+/*白板全屏样式*/
+
+.whiteboard-fullscreen {
+    overflow: hidden !important;
+}
+
+.whiteboard-fullscreen video {
+    height: 0 !important;
+    width: 0 !important;
+}
+
+.whiteboard-fullscreen #whiteboard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: #000;
+}
+
+#fullscreen-btn {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    width: 80px;
+    height: 25px;
+    font-size: 12px;
+    z-index: 101;
+}
+
+/*进度条样式*/
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 102;
+    background-color: #fff;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+#video-player {
+    position: relative;
+    width: 100%;
+}
+
+#bjy-player-teacher {
+    width: 100%;
+}
+
+#player-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    background-color: #9d9d9d;
+}
+
+.picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    transition: transform .8s ease-in-out;
+}
+
+.picture:hover {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+}
+
+.main-content {
+    flex: 1;
+    position: relative;
+    min-height: 50vh;
+}
+
+.list-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    text-align: center;
+}
+
+.tab-list {
+    flex: 1;
+    height: 30px;
+    line-height: 30px;
+}
+
+.tab-select {
+    color: #fa0;
+    border-bottom: 1px solid #fa0;
+}
+
+.tab-content {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.bjy-notice {
+    top: 0;
+}
+
+.tab-item {
+    position: absolute;
+    top: 32px;
+    bottom: 0;
+    width: 100vw;
+}
+
+.tab-item:first-child {
+    left: 0;
+}
+
+.tab-item:nth-child(2) {
+    left: 100vw;
+}
+
+.tab-item:nth-child(3) {
+    left: 200vw;
+}
+
+#barrage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+/*弹幕字体样式*/
+.bjy-barrage {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    padding: 2px 16px;
+    font-size: 16px;
+    border-radius: 15px;
+}
+
+/*弹幕控制条样式*/
+.barrage-tool {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    height: 30px;
+    font-size: 12px;
+}

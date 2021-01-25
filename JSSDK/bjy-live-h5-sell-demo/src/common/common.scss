@@ -1,0 +1,49 @@
+.sprite-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url(../assets/demo.png);
+    background-image: -webkit-image-set(
+            url(../assets/demo@2x.png) 2x
+    );
+    &.close {
+        background-position: 0 0;
+    }
+    &.small-close {
+        width: 16px;
+        height: 16px;
+        background-position: -48px 0;
+    }
+    &.icon-sender {
+        background-position: -24px 0;
+    }
+    &.wait {
+        width: 160px;
+        height: 160px;
+        background-position: 0 -70px;
+    }
+    &.shopping {
+        width: 40px;
+        height: 40px;
+        background-position: 0 -24px;
+        border-radius: 100%;
+    }
+    &.icon-live {
+        width: 160px;
+        height: 160px;
+        background-position: 0 -236px;
+    }
+    &.icon-loading {
+        width: 160px;
+        height: 160px;
+        background-position: -189px 0;
+    }
+}
+
+@mixin hide-scroll() { 
+　　-ms-overflow-style: none;
+　　scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display:none
+    }
+}

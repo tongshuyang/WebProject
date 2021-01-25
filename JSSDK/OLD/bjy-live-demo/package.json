@@ -1,0 +1,13 @@
+{
+  "name": "bjy-webrtc-demo",
+  "version": "1.0.0",
+  "description": "bjy-webrtc-demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx http-server -S",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

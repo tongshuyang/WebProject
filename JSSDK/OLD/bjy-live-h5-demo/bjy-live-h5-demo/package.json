@@ -1,0 +1,12 @@
+{
+  "name": "bjy-live-h5-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -S"
+  },
+  "keywords": [],
+  "author": "baijiayun.com",
+  "license": "MIT"
+}

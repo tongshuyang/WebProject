@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- 使用任何组件都应该引入此基本样式文件 -->
+    <link
+    rel="stylesheet"
+    href="//live-cdn.baijiayun.com/js-sdk/1.32.2/classroom/classroom.css"
+  />
+
+  <!-- 其他组件样式根据需要引入 -->
+  <!-- loading样式 -->
+  <link
+      rel="stylesheet"
+      href="//live-cdn.baijiayun.com/js-sdk/1.32.2/loading/live/Loading.css"
+  />
+  <!-- 聊天列表 -->
+  <link
+      rel="stylesheet"
+      href="//live-cdn.baijiayun.com/js-sdk/1.32.2/message/messageList/MessageList.css"
+  />
+  <!-- 聊天发送 -->
+  <link
+      rel="stylesheet"
+      href="//live-cdn.baijiayun.com/js-sdk/1.32.2/message/messageSender/MessageSender.css"
+  />
+  </head>
+  <body>
+    <script type="text/javascript">
+      if (~location.href.indexOf('eurda=1')) {
+        (function () { var script = document.createElement('script'); script.src="//cdn.jsdelivr.net/npm/eruda"; document.body.appendChild(script); script.onload = function () { eruda.init() } })();
+      }
+    </script>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+
+    <!-- 本 SDK 需要使用 JQuery 库，因此在使用之前首先引入 JQuery 文件 -->
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/classroom/classroom.js"></script>
+
+    <!-- 使用组件时应引入对应的依赖, 如：加载loading组件需引入以下依赖 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/loading/live/Loading.js"></script>
+    <!-- 用户列表、聊天列表、聊天发送 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/user/userList/UserList.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/message/messageList/MessageList.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/message/messageSender/MessageSender.js"></script>
+
+    <!-- 播放器相关依赖 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/player/core/Player.js"></script>
+
+    <!-- 用户推拉流相关 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/user/userPublish.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/user/userStatus.js"></script>
+
+    <!-- h5播放器拓展 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.32.2/player/extension/html.js"></script>
+  </body>
+</html>

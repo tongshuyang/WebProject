@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>百家云纯视频引用</title>
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.53.0/moduleMin.css">
+</head>
+
+<body>
+    <div style="width: 160; height: 90;">
+        <div id="live-player" style="width:100 ; height:100 "></div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.53.0/moduleMin.js"></script>
+    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.13/realtimecat.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.53.0/moduleWebrtc.js"></script>
+    <script type="text/javascript">
+        window.cefQuery = null;
+        BJYPlayer.init({
+            class: {
+                id: 20121042083339,
+                webrtcType: 1
+            },
+            env: 'production',
+            privateDomainPrefix: 'e70655665',
+            //这里的sign为参数的MD5值
+            sign: "f608a83b5284802beda696b55f21116d",
+            element: $('#live-player'),
+            // 是否使用蓝色主题的播放器
+            //theme: 'blue',
+            // 移动端H5播放器是否显示系统原生控制条
+            //showControls: true,
+            // 是否支持线路切换，默认为true
+            //canSwitchServer: true
+        });
+    </script>
+</body>
+
+</html>
