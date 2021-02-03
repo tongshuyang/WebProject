@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>纯视频演示</title>
+
+    <!-- 使用任何组件都应该引入此基本样式文件 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.35.1/classroom/classroom.css">
+    <!-- 默认播放器样式 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/theme/Default.css">
+</head>
+
+<body>
+
+    <div id="live-teacher-player"></div>
+
+    <!-- 本 SDK 需要使用 JQuery 库，因此在使用之前首先引入 JQuery 文件 -->
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+
+    <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/classroom/classroom.js"></script>
+    <!-- 客户端依赖 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/cef/cef.js"></script>
+
+    <!-- 默认播放器组件 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/theme/Default.js"></script>
+
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiayun.com/js-sdk/1.35.1/player/theme/Default.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/extension/html.js"></script>
+
+
+    <script type="text/javascript">
+
+        BJY.init({
+            env: 'production',
+            privateDomainPrefix: 'e62258825',
+            class: {
+                id: 21020233745141
+            },
+            sign: "6e0c13292a98d517ba9160c246a47c63"
+        });
+
+        eventEmitter
+            .one(
+                eventEmitter.CLASSROOM_CONNECT_TRIGGER,
+                function (event, data) {
+                    // 初始化扩展
+                    var extension = BJY.getExtension();
+                    extension.init().then(function () {
+                        eventEmitter.trigger(
+                            eventEmitter.CLASSROOM_CONNECT_TRIGGER,
+                            data
+                        );
+                    });
+                    return false;
+                }
+            )
+            // 监听初始化事件，初始化组件
+            // 请将所有的组件创建逻辑写于此回调函数之中
+            .one(
+                eventEmitter.VIEW_RENDER_TRIGGER,
+                function () {
+                    createTeacherPlayer;
+                }
+            )
+            .on(
+                eventEmitter.CLASS_START,
+                function () {
+                    // 上课后老师自动开启音视频
+                    if (auth.isTeacher()) {
+                        eventEmitter.trigger(
+                            eventEmitter.MEDIA_SWITCH_TRIGGER,
+                            {
+                                audioOn: false,
+                                videoOn: false
+                            }
+                        );
+                    }
+                }
+            );
+        var auth = BJY.auth;
+        var store = BJY.store;
+        var teacherPlayer;
+
+        function createTeacherPlayer(element) {
+
+            teacher = store.get('teacher');
+            if (!teacher) {
+                teacher = {
+                    type: 1
+                };
+            }
+
+            teacherPlayer = BJY.DefaultThemePlayer.create({
+                element: element.find('#live-teacher-player .placeholder'),
+                replace: false,
+                user: store.get('presenter') || teacher,
+                extension: BJY.getExtension(),
+                canSwitchCamera: auth.isSelf(store.get('teacher.id')),
+                canSwitchMic: auth.isSelf(store.get('teacher.id')),
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>

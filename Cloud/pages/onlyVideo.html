@@ -8,13 +8,10 @@
 </head>
 
 <body>
-    <div style="width: 160; height: 90;">
-        <div id="live-player" style="width:100 ; height:100 "></div>
-    </div>
+    <div id="live-player" style="width:100% ; height:100% "></div>
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.53.0/moduleMin.js"></script>
     <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.13/realtimecat.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.53.0/moduleWebrtc.js"></script>
     <script type="text/javascript">
         window.cefQuery = null;
         BJYPlayer.init({
@@ -24,15 +21,15 @@
             },
             env: 'production',
             privateDomainPrefix: 'e70655665',
-            //这里的sign为参数的MD5值
+            //这里的sign为room_id=20121042083339&partner_key=xxx的MD5值
             sign: "f608a83b5284802beda696b55f21116d",
             element: $('#live-player'),
-            // 是否使用蓝色主题的播放器
+            // 如需选用蓝色主题的播放器，可以指定以下参数，否则可以省略
             //theme: 'blue',
-            // 移动端H5播放器是否显示系统原生控制条
-            //showControls: true,
-            // 是否支持线路切换，默认为true
-            //canSwitchServer: true
+            // 如果需要指定移动端H5播放器显示系统原生控制条，传入以下参数，否则可以省略
+            showControls: true,
+            // 是否支持线路切换，默认为true，否则可以省略
+            canSwitchServer: true
         });
     </script>
 </body>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta https-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>直播间</title>
+    <!-- 使用任何组件都应该引入此基本样式文件 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.54.3/classroom/classroom.css" />
+</head>
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #app {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    #h5-player {
+        background: #aaa;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+    }
+
+    .bjy-video {
+        object-fit: cover;
+    }
+
+    .tab {
+        position: absolute;
+        width: 100%;
+        height: 60%;
+        bottom: 0;
+        z-index: 0;
+        background: #fff;
+    }
+
+    #btn-wrap {
+        position: absolute;
+        width: 100%;
+        height: 5%;
+        top: 35%;
+        display: flex;
+        justify-content: space-between;
+        background: #ccc;
+        align-items: center;
+    }
+
+    #btn-wrap>div {
+        width: 33.3%;
+        flex-grow: 1;
+        text-align: center;
+        height: 100%;
+        box-sizing: border-box;
+        line-height: 100%;
+        cursor: pointer;
+        line-height: 2.4;
+    }
+
+    #btn-wrap .active {
+        border-bottom: 2px solid goldenrod;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <div id="h5-player">
+        </div>
+
+    </div>
+
+    <!-- 本 SDK 需要使用 JQuery 库，因此在使用之前首先引入 JQuery 文件 -->
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.3/classroom/classroom.js"></script>
+    <!-- 播放器相关依赖 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.3/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.3/player/core/Player.js"></script>
+
+    <!-- h5播放器拓展 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.3/player/extension/html.js"></script>
+
+    <script>
+        window.onload = function () {
+            var eventEmitter = BJY.eventEmitter;
+            var store = BJY.store;
+            var Player = BJY.Player;
+
+            // 进教室参数
+            var options = {
+                prefixName: 'e62258825',
+                env: 'production',
+                room_id: '21020233745141',
+                user_number: '0',
+                user_avatar: '',
+                user_name: '游客',
+                user_role: 0,
+                sign: '6e0c13292a98d517ba9160c246a47c63',
+                webrtc: 0
+            };
+
+            BJY.init({
+                env: options.env,
+                privateDomainPrefix: options.prefixName,
+                class: {
+                    id: options.room_id,
+                    webrtcType: options.webrtc
+                },
+                user: {
+                    number: options.user_number,
+                    avatar: decodeURIComponent(options.user_avatar),
+                    name: decodeURIComponent(options.user_name),
+                    type: Number(options.user_role)
+                },
+                teacher: {
+                    type: 1
+                },
+                sign: options.sign
+            })
+
+            eventEmitter
+                .on(
+                    eventEmitter.CLASSROOM_CONNECT_TRIGGER,
+                    function (event, data) {
+                        // 开始连接服务器，可以在这做一下创建组件之前的准备
+                    }
+                )
+                .on(
+                    eventEmitter.VIEW_RENDER_TRIGGER,
+                    (event, data) => {
+                        // 本事件触发表示直播服务已准备就绪，开始创建组件。该事件只会触发一次，会在BJY.init()之后很短时间内触发，注意监听时机
+                        // 播放器初始化
+                        Player.html.extensions.useFlv = true;
+                        Player.html.init();
+                        // 创建播放器
+                        var teacherVideo = new Player({
+                            // 组件的父容器
+                            element: $('#h5-player'),
+                            // 音视频发布用户（一般为老师）
+                            user: store.get('teacher'),
+                            // 播放器扩展（实现与底层播放相关的接口）
+                            extension: Player.html
+                        })
+
+                        $('#play-btn').on('click', function () {
+                            teacherVideo && teacherVideo.replay();
+                        });
+
+
+                    },
+                )
+        }
+    </script>
+</body>
+
+</html>

@@ -221,7 +221,7 @@ export default {
       console.log('******************************************************************************')
       // 默认demo教室
       var options = {
-        prefixName: '',
+        prefixName: 'e70655665',
         env: 'production',
         room_id: '20121042083339',
         user_number: '187',
