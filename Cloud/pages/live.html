@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>纯视频演示</title>
+    <title>Default</title>
 
     <!-- 使用任何组件都应该引入此基本样式文件 -->
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.35.1/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
     <!-- 默认播放器样式 -->
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/theme/Default.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.css">
 </head>
 
 <body>
@@ -19,28 +19,59 @@
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
 
     <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.3/realtimecat.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/extension/webrtc/webrtc.js"></script>
     <!-- 客户端依赖 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/cef/cef.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/cef/cef.js"></script>
 
     <!-- 默认播放器组件 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/theme/Default.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.js"></script>
 
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/player.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiayun.com/js-sdk/1.35.1/player/theme/Default.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.35.1/player/extension/html.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/core/Player.js"></script>
+    <script src="http://live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/extension/html.js"></script>
 
 
     <script type="text/javascript">
 
-        BJY.init({
+        // store 存储着系统的权限信息
+        var auth = BJY.auth;
+        var store = BJY.store;
+        var eventEmitter = BJY.eventEmitter;
+        var teacherPlayer;
+
+        //教室参数
+        var options = {
+            prefixName: 'e70655665',
             env: 'production',
-            privateDomainPrefix: 'e62258825',
+            room_id: '20121042083339',
+            user_number: '0',
+            user_avatar: '',
+            user_name: '游客',
+            user_role: 0,
+            sign: 'f608a83b5284802beda696b55f21116d',
+            webrtc: 1
+        };
+        //初始化房间
+        BJY.init({
+            env: options.env,
+            privateDomainPrefix: options.prefixName,
             class: {
-                id: 21020233745141
+                id: options.room_id,
+                webrtcType: options.webrtc
             },
-            sign: "6e0c13292a98d517ba9160c246a47c63"
+            user: {
+                number: options.user_number,
+                avatar: decodeURIComponent(options.user_avatar),
+                name: decodeURIComponent(options.user_name),
+                type: Number(options.user_role)
+            },
+            teacher: {
+                type: 1
+            },
+            sign: options.sign
         });
 
         eventEmitter
@@ -63,48 +94,23 @@
             .one(
                 eventEmitter.VIEW_RENDER_TRIGGER,
                 function () {
-                    createTeacherPlayer;
-                }
-            )
-            .on(
-                eventEmitter.CLASS_START,
-                function () {
-                    // 上课后老师自动开启音视频
-                    if (auth.isTeacher()) {
-                        eventEmitter.trigger(
-                            eventEmitter.MEDIA_SWITCH_TRIGGER,
-                            {
-                                audioOn: false,
-                                videoOn: false
-                            }
-                        );
+                    teacher = store.get('teacher');
+                    if (!teacher) {
+                        teacher = {
+                            type: 1
+                        };
                     }
+
+                    teacherPlayer = BJY.DefaultThemePlayer.create({
+                        element: element.find('#live-teacher-player .placeholder'),
+                        replace: false,
+                        user: store.get('presenter') || teacher,
+                        extension: BJY.getExtension(),
+                        canSwitchCamera: auth.isSelf(store.get('teacher.id')),
+                        canSwitchMic: auth.isSelf(store.get('teacher.id')),
+                    });
                 }
             );
-        var auth = BJY.auth;
-        var store = BJY.store;
-        var teacherPlayer;
-
-        function createTeacherPlayer(element) {
-
-            teacher = store.get('teacher');
-            if (!teacher) {
-                teacher = {
-                    type: 1
-                };
-            }
-
-            teacherPlayer = BJY.DefaultThemePlayer.create({
-                element: element.find('#live-teacher-player .placeholder'),
-                replace: false,
-                user: store.get('presenter') || teacher,
-                extension: BJY.getExtension(),
-                canSwitchCamera: auth.isSelf(store.get('teacher.id')),
-                canSwitchMic: auth.isSelf(store.get('teacher.id')),
-            });
-        }
-
-
     </script>
 </body>
 

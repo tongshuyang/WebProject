@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>webrtcExtension</title>
+    <title>h5PlayFlv</title>
     <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
 </head>
@@ -11,14 +11,13 @@
 <body style="margin: 0;">
 
     <!-- 音视频容器 -->
-    <div id="webrtc-player" style="height: 100vh;"></div>
+    <div id="h5-player" style="height: 100vh;"></div>
 
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
-    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.3/realtimecat.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/player.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/core/Player.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/extension/webrtc/webrtc.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.3/player/extension/html.js"></script>
 
     <script>
         // store 存储着系统的权限信息
@@ -26,19 +25,19 @@
 
         // 获取创建播放器的 Player 对象
         var Player = BJY.Player;
-        var teacherWebRTCPlayer;
+        var h5Player;
         var eventEmitter = BJY.eventEmitter;
 
         //教室参数
         var options = {
             prefixName: 'e70655665',
             env: 'production',
-            room_id: '20121042083339',
+            room_id: '20121171168042',
             user_number: '0',
             user_avatar: '',
             user_name: '游客',
             user_role: 0,
-            sign: 'f608a83b5284802beda696b55f21116d',
+            sign: '6aa2271c50980033318ecd038b5e6d12',
             webrtc: 1
         };
         
@@ -67,13 +66,8 @@
                 eventEmitter.CLASSROOM_CONNECT_TRIGGER,
                 function (event, data) {
                     // 初始化扩展
-                    Player.webrtc.init().then(function () {
-                        eventEmitter.trigger(
-                            eventEmitter.CLASSROOM_CONNECT_TRIGGER,
-                            data
-                        );
-                    });
-                    return false;
+                    Player.html.extensions.useFlv = true;
+                    Player.html.init();
                 }
             )
             .on(
@@ -81,15 +75,15 @@
                 eventEmitter.TEACHER_MEDIA_ON,
                 function () {
                     // 判断播放器是否存在
-                    if (!teacherWebRTCPlayer) {
-                        // 若不存在，创建一个 webrtc 播放器组件
-                        teacherWebRTCPlayer = new Player({
+                    if (!h5Player) {
+                        // 若不存在，创建一个 h5 播放器组件
+                        h5Player = new Player({
                             // 组件的父容器
-                            element: $('#webrtc-player'),
+                            element: $('#h5-player'),
                             // 音视频发布用户（一般为老师）
                             user: store.get('teacher'),
                             // 播放器扩展
-                            extension: Player.webrtc,
+                            extension: Player.html,
                             //不上麦拉合流
                             isWebRTCMix: true
                         });
@@ -99,9 +93,9 @@
             .on(
                 eventEmitter.TEACHER_REMOVE,
                 function () {
-                    if (teacherWebRTCPlayer) {
-                        teacherWebRTCPlayer.dispose();
-                        teacherWebRTCPlayer = null;
+                    if (h5Player) {
+                        h5Player.dispose();
+                        h5Player = null;
                     }
                 }
             );
