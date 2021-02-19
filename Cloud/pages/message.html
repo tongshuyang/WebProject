@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
     <link rel="stylesheet" href="http://live-cdn.baijiayun.com/js-sdk/1.54.0/message/messageList/MessageList.css">
+    <link rel="stylesheet" href="http://live-cdn.baijiayun.com/js-sdk/1.54.0/message/messageSender/MessageSender.css">
 
 </head>
 
@@ -17,9 +18,14 @@
         <div class="placeholder"></div>
     </div>
 
+    <div id="message-sender" style="position: fixed; top: 0cm;width: 100%;">
+        <div class="placeholder"></div>
+    </div>
+
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
     <script src="http://live-cdn.baijiayun.com/js-sdk/1.54.0/message/messageList/MessageList.js"></script>
+    <script src="http://live-cdn.baijiayun.com/js-sdk/1.54.0/message/messageSender/MessageSender.js"></script>
 
     <script type="text/javascript">
         // store 存储着系统的权限信息
@@ -144,6 +150,23 @@
                             当你设置之后调用 messageList.forceUpdate()刷新组件。
                             */
                         }
+                    });
+
+                    BJY.MessageSender.create({
+                        // 消息发送组件的占位元素
+                        element: $('#message-sender .placeholder'),
+                        // 能否发送表情
+                        canSendEmoji: true,
+                        // 能否发送图片
+                        canSendImage: true,
+                        // 能否使用私聊功能，可选，默认为false
+                        canWhisper: true,
+                        // 是否多行输入，在移动端浏览器下此项传false
+                        multiline: true,
+                        // 提示信息
+                        placeholder: '请输入...',
+                        // 设置最大字符数
+                        messageMaxLength: 140
                     });
                 }
 
