@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>userList</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/user/userList/UserList.css">
+
+</head>
+
+<body style="margin: 0;">
+
+    <div id="user-list"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/user/userList/UserList.js"></script>
+
+    <script type="text/javascript">
+        // store 存储着系统的权限信息
+        var store = BJY.store;
+        var eventEmitter = BJY.eventEmitter;
+
+        //教室参数
+        var options = {
+            prefixName: 'e70655665',
+            env: 'production',
+            room_id: '20121042083339',
+            user_number: '0',
+            user_avatar: '',
+            user_name: '游客',
+            user_role: 0,
+            sign: 'f608a83b5284802beda696b55f21116d',
+            webrtc: 1
+        };
+        //初始化房间
+        BJY.init({
+            env: options.env,
+            privateDomainPrefix: options.prefixName,
+            class: {
+                id: options.room_id,
+                webrtcType: options.webrtc
+            },
+            user: {
+                number: options.user_number,
+                avatar: decodeURIComponent(options.user_avatar),
+                name: decodeURIComponent(options.user_name),
+                type: Number(options.user_role)
+            },
+            teacher: {
+                type: 1
+            },
+            sign: options.sign
+        });
+
+        var userRoleMap = {};
+        var config = BJY.config;
+        userRoleMap[config.ROLE_TYPE_TEACHER] = {
+            en: 'Teacher',
+            cn: '老师'
+        };
+        userRoleMap[config.ROLE_TYPE_ASSISTANT] = {
+            en: 'Assistant',
+            cn: '助教'
+        };
+        userRoleMap[config.ROLE_TYPE_STUDENT] = {
+            en: 'Student',
+            cn: '学生'
+        };
+        userRoleMap[config.ROLE_TYPE_GUEST] = {
+            en: 'Guest',
+            cn: '游客'
+        };
+
+        eventEmitter
+            .one(
+                eventEmitter.VIEW_RENDER_TRIGGER,
+                function (event, data) {
+                    // 注意，在VIEW_RENDER_TRIGGER事件触发后再去加载教室里面的组件
+                    var userList = BJY.UserList.create({
+                        // 组件占位元素
+                        element: $('#user-list'),
+                        // 配置用户渲染属性 必须
+                        renderUser: function (user, width, height) {
+                            return {
+                                id: user.id,
+                                name: user.name,
+                                number: user.number,
+                                // 低密度屏幕压缩，详情查看基础第二条
+                                avatar: BJY.compressImage({
+                                    url: user.avatar,
+                                    // 对于低密度屏幕将图片压缩到头像的大小
+                                    width: width,
+                                    height: height
+                                }),
+                                // 高密度屏幕压缩，详情查看基础第二条
+                                avatar2x: BJY.compressImage({
+                                    url: user.avatar,
+                                    // 对于高密度屏幕（如 MAC）将图片压缩到头像的2倍大小
+                                    width: width * 2,
+                                    height: height * 2
+                                }),
+                                // 根据用户类型，配置角色的英文语言
+                                role: userRoleMap[user.type].en,
+                                // 根据用户类型，配置角色的本地语言
+                                localRole: userRoleMap[user.type].cn,
+                            }
+                        }
+                    });
+                }
+            );
+    </script>
+    </script>
+</body>
+
+</html>
