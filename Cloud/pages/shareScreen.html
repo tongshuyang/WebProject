@@ -4,16 +4,27 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>model</title>
+    <title>shareScreen</title>
     <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/setting/menu/menu.css">
 
 </head>
 
 <body style="margin: 0;">
 
+
+    <div id="menu-share-screen">
+        <i class="icon icon-share"></i>
+        <span class="bjy-screen-share"></span>
+    </div>
+
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.3/realtimecat.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/cef/cef.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/screenShareExtension/webrtc.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/setting/menu/menu.js"></script>
 
     <script type="text/javascript">
         // store 存储着系统的权限信息
@@ -51,6 +62,97 @@
             },
             sign: options.sign
         });
+
+        //触发开始屏幕分享,mode 分享模式 （全屏分享、局部分享、程序分享）
+        function triggerStart(mode) {
+            eventEmitter.trigger(
+                eventEmitter.SCREEN_SHARE_START_TRIGGER,
+                {
+                    mode: mode
+                }
+            );
+        };
+
+        /**
+         * 检查是否可以屏幕分享, 需要用户依据自己的需求重写
+         *
+         * @returns {boolean}
+         */
+        function checkCondition() {
+            return true;
+        }
+        var element=$('#menu-share-screen');
+
+        var screenShare = BJY.ScreenShareMenu.create({
+            // 按钮容器
+            element: element,
+            // 点击全屏分享回调
+            onFullScreenClick: function (mode) {
+                if (checkCondition()) {
+                    triggerStart(mode);
+                }
+            },
+            // 点击区域分享回调
+            onPartClick: function (mode) {
+                if (checkCondition()) {
+                    triggerStart(mode);
+                }
+            },
+            // 点击程序分享回调
+            onProgramClick: function (mode, list) {
+                if (checkCondition()) {
+                    // list 数组是组件返回的可用于分享的程序数组，提供给用户选择需要分享哪一个程序
+                    // list[0].icon 程序图标，base64格式
+                    // list[0].name 程序名
+
+                    // 分享选择的程序
+                    eventEmitter.trigger(
+                        eventEmitter.SCREEN_SHARE_START_TRIGGER,
+                        {
+                            mode: mode,
+                            program: list[index].name
+                        }
+                    );
+                }
+            },
+            // 点击停止分享回调
+            onStopClick: function () {
+                eventEmitter.trigger(
+                    eventEmitter.SCREEN_SHARE_STOP_TRIGGER
+                );
+            }
+        });
+
+        eventEmitter
+            .on(
+                eventEmitter.SCREEN_SHARE_START_BROADCAST,
+                function (e, data) {
+                    // 更新屏幕分享状态，学生端获取老师开始屏幕分享
+                }
+            )
+            .on(
+                eventEmitter.SCREEN_SHARE_STOP_BROADCAST,
+                function (e, data) {
+                    // 更新屏幕分享状态 学生端获取老师停止屏幕分享
+                    screenShare.destory;
+                }
+            );
+
+        element.click(() => {
+            if (isScreenSharing) {
+                eventEmitter.trigger(
+                    eventEmitter.SCREEN_SHARE_STOP_TRIGGER
+                )
+            } else {
+                if (!this.canSpeak) {
+                    this.$Toast('请先举手')
+                    return
+                }
+                this.checkCondition() && BJY.ScreenShareExtensionWebrtc.start((data) => {
+                    this.$Toast(data.msg)
+                })
+            }
+        })
 
         eventEmitter
             .one(

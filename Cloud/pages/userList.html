@@ -8,12 +8,28 @@
     <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
     <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/user/userList/UserList.css">
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #loading {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+    </style>
 
 </head>
 
 <body style="margin: 0;">
 
-    <div id="user-list"></div>
+    <div id="user-list">
+        <div class="placeholder"></div>
+    </div>
 
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
@@ -73,16 +89,16 @@
         userRoleMap[config.ROLE_TYPE_GUEST] = {
             en: 'Guest',
             cn: '游客'
-        };
+        };    
 
         eventEmitter
             .one(
                 eventEmitter.VIEW_RENDER_TRIGGER,
                 function (event, data) {
                     // 注意，在VIEW_RENDER_TRIGGER事件触发后再去加载教室里面的组件
-                    var userList = BJY.UserList.create({
+                    userList = BJY.UserList.create({
                         // 组件占位元素
-                        element: $('#user-list'),
+                        element: $('#user-list .placeholder'),
                         // 配置用户渲染属性 必须
                         renderUser: function (user, width, height) {
                             return {
