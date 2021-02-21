@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <title>whiteBoard</title>
     <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/whiteboard/Whiteboard.css">
     <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/whiteboard/Whiteboard.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/component/canvas/toolBar/ToolBar.css">
 </head>
 
 <body style="margin: 0;">
@@ -15,10 +16,15 @@
         <div class="placeholder"></div>
     </div>
 
+    <div id="painter-tool">
+        <div class="placeholder"></div>
+    </div>
+
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/component/canvas/Canvas.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/whiteboard/Whiteboard.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/component/canvas/toolBar/ToolBar.js"></script>
     <script type="text/javascript">
         // store 存储着系统的权限信息
         var store = BJY.store;
@@ -66,6 +72,28 @@
                         element: $('#whiteboard .placeholder'),
                         // 填充模式： 1 自适应  2 撑满容器
                         fit: 1,
+                    });
+
+                    BJY.PainterToolBar.create({
+                        // DOM 父元素
+                        element: $('#painter-tool .placeholder'),
+                        replace: true,
+                        // 是否水平放置
+                        isVertical: false,
+                        // 是否使用选择工具
+                        canUseSelectTool: true,
+                        //是否使用粉笔工具
+                        canUsePencilTool: true,
+                        //是否使用图形工具
+                        canUseShapeTool: true,
+                        //是否使用文本工具
+                        canUseFontTool: true,
+                        //是否有调色板
+                        canUsePaletteTool: true,
+                        //是否使用删除键
+                        canUseDeleteTool: true,
+                        //是否使用激光笔
+                        canUsePointTool: true
                     });
 
                 }
