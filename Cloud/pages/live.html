@@ -20,7 +20,7 @@
 
     <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
     <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
-    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.3/realtimecat.js"></script>
+    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.9/realtimecat.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/extension/webrtc/webrtc.js"></script>
     <!-- 客户端依赖 -->
     <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/cef/cef.js"></script>
@@ -109,6 +109,7 @@
                         extension: extension,
                         canSwitchCamera: auth.isSelf(store.get('teacher.id')),
                         canSwitchMic: auth.isSelf(store.get('teacher.id')),
+                        isWebRTCMix: true
                     });
                 }
             );

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>H5Player</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/H5.css">
+
+</head>
+
+<body style="margin: 0;">
+
+    <div class="player"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/player.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/core/Player.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/extension/html.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/H5.js"></script>
+
+    <script type="text/javascript">
+        // store 存储着系统的权限信息
+        var store = BJY.store;
+        var eventEmitter = BJY.eventEmitter;
+
+        //教室参数
+        var options = {
+            prefixName: 'e70655665',
+            env: 'production',
+            room_id: '20121042083339',
+            user_number: '0',
+            user_avatar: '',
+            user_name: '游客',
+            user_role: 0,
+            sign: 'f608a83b5284802beda696b55f21116d',
+            webrtc: 1
+        };
+        //初始化房间
+        BJY.init({
+            env: options.env,
+            privateDomainPrefix: options.prefixName,
+            class: {
+                id: options.room_id,
+                    webrtcType: options.webrtc
+            },
+            user: {
+                number: options.user_number,
+                avatar: decodeURIComponent(options.user_avatar),
+                name: decodeURIComponent(options.user_name),
+                type: Number(options.user_role)
+            },
+            teacher: {
+                type: 1
+            },
+            sign: options.sign
+        }).then(function () {
+            var teacherPlayer = BJY.H5Player.create({
+                element: $('.player'),
+                showControls: true,
+                poster: '',
+                customCoverImg: '' // 设置自定义背景图
+            });
+        });
+    </script>
+    </script>
+</body>
+
+</html>
