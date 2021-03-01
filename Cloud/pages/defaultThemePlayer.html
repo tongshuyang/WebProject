@@ -3,46 +3,55 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>defaultPlayer</title>
+    <title>defaultThemePlayer</title>
 
     <!-- 使用任何组件都应该引入此基本样式文件 -->
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
     <!-- 默认播放器样式 -->
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.css">
+    <!-- 音视频菜单按钮功能 -->
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/setting/menu/menu.css">
 </head>
 
 <body>
 
+
+    <div id="live-my-player"></div>
+
+    <div id="menu-camera" class="menu"></div>
+
+    <div id="menu-mic" class="menu"></div>
+
     <div id="live-teacher-player"></div>
 
     <!-- 本 SDK 需要使用 JQuery 库，因此在使用之前首先引入 JQuery 文件 -->
-    <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
 
     <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/user/userStatus.js"></script>
+    <!-- 默认播放器组件 -->
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/player.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/core/Player.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.js"></script>
+
     <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.9/realtimecat.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/player/extension/webrtc/webrtc.js"></script>
-    <!-- 客户端依赖 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/cef/cef.js"></script>
 
-    <!-- 默认播放器组件 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.js"></script>
-
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/player.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/core/Player.js"></script>
-    <script src="http://live-cdn.baijiayun.com/js-sdk/1.54.0/player/theme/Default.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/player/extension/html.js"></script>
+    <!-- 音视频菜单按钮功能 -->
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/user/userPublish.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/setting/menu/menu.js"></script>
 
 
     <script type="text/javascript">
-
         // store 存储着系统的权限信息
         var auth = BJY.auth;
         var store = BJY.store;
         var eventEmitter = BJY.eventEmitter;
-        var teacherPlayer;
         var extension = BJY.Player.webrtc;
-        
+
 
         //教室参数
         var options = {
@@ -62,7 +71,7 @@
             privateDomainPrefix: options.prefixName,
             class: {
                 id: options.room_id,
-                webrtcType: options.webrtc
+                    webrtcType: options.webrtc
             },
             user: {
                 number: options.user_number,
@@ -75,6 +84,8 @@
             },
             sign: options.sign
         });
+
+
 
         eventEmitter
             .one(
@@ -103,12 +114,12 @@
                     }
 
                     teacherPlayer = BJY.DefaultThemePlayer.create({
-                        element: element.find('#live-teacher-player .placeholder'),
+                        element: $('#live-teacher-player'),
                         replace: false,
                         user: store.get('presenter') || teacher,
                         extension: extension,
-                        canSwitchCamera: auth.isSelf(store.get('teacher.id')),
-                        canSwitchMic: auth.isSelf(store.get('teacher.id')),
+                        canSwitchCamera: true,
+                        canSwitchMic: true,
                         isWebRTCMix: true
                     });
                 }

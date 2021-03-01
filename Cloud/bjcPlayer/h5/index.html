@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>H5回放demo</title>
-        <link rel="stylesheet" href="https://www.baijiayun.com/m/playback/0.0.3/playback/player.css">
-    </head>
-    <body>
-        <div id="video-wrapper" style="width:100%;height:40%"></div>
-        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-        <script src="https://www.baijiayun.com/m/playback/0.0.3/playback/player.js"></script>
-        </script>
-        <script>
-            var player = new bjcPlayer('#video-wrapper', {
-                token: '8R2nD0bEkOPEV4hhSJUmEMLtAewxMKNsEMIBabyg62x4Z_uQgNkR4g',
-                definition: 'hign', // hign 高清 low 低清
-            });
-            player.play('70253936');
-        </script>
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>H5回放demo</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/m-video-jssdk/0.0.5/playback/player.css">
+</head>
+
+<body>
+
+    <div id="video-wrapper" style="width:100%;height:40%"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="https://live-cdn.baijiayun.com/m-video-jssdk/0.0.5/playback/player.js"></script>
+    </script>
+    <!-- 官网文档地址：https://dev.baijiayun.com/wiki/detail/12#^h0-3 -->
+    <script>
+        var player = new bjcPlayer('#video-wrapper', {
+            privateDomainPrefix: 'e70655665',
+            token: '8R2nD0bEkOPEV4hhSJUmEMLtAewxMKNsEMIBabyg62x4Z_uQgNkR4g',
+            definition: 'hign', // hign 高清 low 低清
+        });
+        player.play('70253936');
+    </script>
+</body>
+
 </html>
