@@ -28,6 +28,8 @@
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/message/messageSender/MessageSender.js"></script>
 
     <script type="text/javascript">
+        // 官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/message-list
+
         // store 存储着系统的权限信息
         var store = BJY.store;
         var eventEmitter = BJY.eventEmitter;
@@ -50,7 +52,7 @@
             privateDomainPrefix: options.prefixName,
             class: {
                 id: options.room_id,
-                webrtcType: options.webrtc
+                    webrtcType: options.webrtc
             },
             user: {
                 number: options.user_number,
@@ -95,22 +97,22 @@
                         // 加载表情 返回一个<img>标签
                         renderEmoji: function (name, url) {
                             if (BJY.isAlicloudImage(url)) {
-                                return '<img ondragstart="return false" src="'
-                                    + (url + '@100w_1e_1l.png')
-                                    + '" srcset="'
-                                    + (url + '@200w_1e_1l.png')
-                                    + ' 2x">';
+                                return '<img ondragstart="return false" src="' +
+                                    (url + '@100w_1e_1l.png') +
+                                    '" srcset="' +
+                                    (url + '@200w_1e_1l.png') +
+                                    ' 2x">';
                             }
                             return '<img ondragstart="return false" src="' + url + '">';
                         },
                         // 加载图片，返回一个<img>标签
                         renderImage: function (url) {
                             if (BJY.isAlicloudImage(url)) {
-                                return '<img ondragstart="return false" src="'
-                                    + (url + '@100w_1e_1l.png')
-                                    + '" srcset="'
-                                    + (url + '@200w_1e_1l.png')
-                                    + ' 2x">';
+                                return '<img ondragstart="return false" src="' +
+                                    (url + '@100w_1e_1l.png') +
+                                    '" srcset="' +
+                                    (url + '@200w_1e_1l.png') +
+                                    ' 2x">';
                             }
                             return '<img ondragstart="return false" src="' + url + '">';
                         },

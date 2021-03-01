@@ -26,6 +26,8 @@
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/whiteboard/Whiteboard.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/component/canvas/toolBar/ToolBar.js"></script>
     <script type="text/javascript">
+        // 官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/whiteboard
+
         // store 存储着系统的权限信息
         var store = BJY.store;
         var eventEmitter = BJY.eventEmitter;
@@ -48,7 +50,7 @@
             privateDomainPrefix: options.prefixName,
             class: {
                 id: options.room_id,
-                webrtcType: options.webrtc
+                    webrtcType: options.webrtc
             },
             user: {
                 number: options.user_number,
