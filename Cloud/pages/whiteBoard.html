@@ -30,8 +30,6 @@
 
         // store 存储着系统的权限信息
         var store = BJY.store;
-        var auth = BJY.auth;
-        var pageData = BJY.data.page;
         var eventEmitter = BJY.eventEmitter;
 
         //教室参数
@@ -97,33 +95,18 @@
                         //是否使用删除键
                         canUseDeleteTool: true,
                         //是否使用激光笔
-                        canUsePointTool: true
+                        canUsePointTool: true                       
                     });
+
                     eventEmitter.trigger(
                         eventEmitter.PAINT_AUTH_CHANGE, {
                             canPaint: true,
                             fromTeacher: true,
                             cache: 1
                         }
-                    );
-
+                    );  
                 }
-            )
-            .on(
-                eventEmitter.WHITEBOARD_LAYOUT_CHANGE, (e, data) => {
-                    // 重新设置白板的高度并让其居中
-                })
-            .on(eventEmitter.STUDENT_PPT_AUTH_CHANGE, (e, data) => {
-                console.log(data.forbid);
-                this.forbidChange = data.forbid;
-            })
-            .on(eventEmitter.MEDIA_PUBLISH, (e, data) => {
-                if (data.audioOn === false && data.videoOn === false && data.user.id == store.get('user.id')) {
-                    this.canStudentPanit = false
-                }
-            });
-        },
-        beforeDestroy() {}, ;
+            );
     </script>
     </script>
 </body>

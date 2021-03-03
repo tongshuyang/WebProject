@@ -2,10 +2,10 @@
   <div id="whiteboard">
     <div class="placeholder"></div>
     <div v-if="canChangePage" class="pre-page">
-      <span class="icon-chevron-left" :class="{ forbid: !canPrePage }"><</span>
+      <span class="icon-chevron-left" :class="{ forbid: !canPrePage }">&lt;</span>
     </div>
     <div v-if="canChangePage" class="next-page">
-      <span class="icon-chevron-right" :class="{ forbid: !canNextPage }">></span>
+      <span class="icon-chevron-right" :class="{ forbid: !canNextPage }">&gt;</span>
     </div>
 
     <div v-show="canPaint" class="bjy-toolbar">
