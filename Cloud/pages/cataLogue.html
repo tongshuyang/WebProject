@@ -4,16 +4,22 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>model</title>
+    <title>cataLogue</title>
     <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.54.0/catalogue/Catalogue.css">
 
 </head>
 
 <body style="margin: 0;">
 
+    <div id="catalogue">
+        <div class="placeholder"></div>
+    </div>
+
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.54.0/catalogue/Catalogue.js"></script>
 
     <script type="text/javascript">
         // store 存储着系统的权限信息
@@ -38,7 +44,7 @@
             privateDomainPrefix: options.prefixName,
             class: {
                 id: options.room_id,
-                webrtcType: options.webrtc
+                    webrtcType: options.webrtc
             },
             user: {
                 number: options.user_number,
@@ -55,9 +61,11 @@
         eventEmitter
             .one(
                 eventEmitter.VIEW_RENDER_TRIGGER,
-                () => {
-                    // 注意，在VIEW_RENDER_TRIGGER事件触发后再去加载教室里面的组件
-
+                function (event, data) {
+                    BJY.Catalogue.create({
+                        element: $('#catalogue .placeholder'),
+                        thumbnailWidth: 100
+                    });
                 }
             );
     </script>
