@@ -117,7 +117,7 @@ export default {
         console.log(
             "******************************************************************************"
         );
-        // https://e87418531.test-at.baijiayun.com/web/room/enter?room_id=20053197914347&user_number=0&user_role=0&user_name=xs&user_avatar=&sign=ad9188f1a2230e711572cef34a913856&auth_md5=056252a83d4c50b1bc296a0e262317b9&user_status=0&log=info
+        
         var options = {
             prefixName: "e70655665",
             env: "production",

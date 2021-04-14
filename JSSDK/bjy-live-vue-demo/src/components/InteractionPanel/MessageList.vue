@@ -42,7 +42,7 @@ export default {
       defaultContent: '这里空空如也...' // 默认无公告时显示文本
     })
     // 创建消息列表组件
-    BJY.MessageList.create({
+    let messageList = BJY.MessageList.create({
       element: $('#message-panel .message-list'),
       renderEmoji: function (name, url) {
         if (BJY.isAlicloudImage(url)) {

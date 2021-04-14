@@ -37,7 +37,8 @@ let auth = BJY.auth
 export default {
   components: {
     SpeakApplyMenu,
-    ShareScreenMenu
+    ShareScreenMenu,
+    MessageList
   },
   data () {
     return {
@@ -135,6 +136,7 @@ export default {
       textOnly: false,
       // 如果需要自定义弹幕内容，可实现此方法
       renderContent: function (data) {
+        console.log(messageList.format(data.content));
         return data.content
       }
     })

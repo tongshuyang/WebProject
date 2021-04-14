@@ -28,13 +28,13 @@
         </div>
     </div>
 
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <script src="https://live-cdn.baijiayun.com/www-video-jssdk/dep/videojs/0.0.6/dist/videojs.js"></script>
     <script src="https://live-cdn.baijiayun.com/www-video-jssdk/0.0.7/bjcPlayer/index.js"></script>
 
     <script>
         // 官网文档地址：https://dev.baijiayun.com/wiki/detail/55#^h0-4
-        var player = new BjcPlayer($('#main').find('.video')[0], {
+        var player = new BjcPlayer($('#main').find('.video'), {
             token: '8R2nD0bEkOPEV4hhSJUmEMLtAewxMKNsEMIBabyg62x4Z_uQgNkR4g',
             vid: '70253936',
             playbackRates: [0.7, 1, 1.2, 1.5, 2], // 倍速 传入 [] 隐藏倍速列表

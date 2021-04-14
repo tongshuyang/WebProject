@@ -30,7 +30,7 @@ export default {
     window.player = teacherH5Player = BJY.H5Player.create({
         element: $('#h5-player'),
         showControls: false,
-        poster: ''
+        poster: '//img.baijiayun.com/0bjcloud/live/avatar/v2/teacher.png'
     })
   },
   beforeDestroy () { }

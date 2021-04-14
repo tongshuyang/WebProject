@@ -66,6 +66,7 @@ import Record from "./Record";
 let store = BJY.store;
 let eventEmitter = BJY.eventEmitter;
 let auth = BJY.auth;
+let parser = BJY.parser;
 
 export default {
   components: {
@@ -177,7 +178,32 @@ export default {
       textOnly: false,
       // 如果需要自定义弹幕内容，可实现此方法
       renderContent: function (data) {
-        return data.content;
+        var paramData = data.data;
+        var content = data.content;
+
+        var renderEmoji = BJY.data.emotion.render;
+
+        if (paramData) {
+          if (paramData.type === "emoji") {
+            content = renderEmoji(
+              paramData.key,
+              paramData.url || parser.getEmojiUrlByKey(paramData.key)
+            );
+          } else {
+            return false;
+          }
+        } else {
+          content = $.trim(content);
+          if (parser.isPureText(content)) {
+            content = parser.encodeHTML(content);
+            content = parser.parseWhitespace(content);
+            content = parser.parseBreakline(content);
+            content = parser.parseEmoji(content, renderEmoji);
+          } else {
+            content = parser.parseEmoji(content, renderEmoji);
+          }
+        }
+        return content;
       },
     });
   },

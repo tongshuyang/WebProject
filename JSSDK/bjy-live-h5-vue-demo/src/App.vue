@@ -115,7 +115,7 @@ export default {
       user_name: '童书洋',
       user_role: 0,
       sign: 'a49c80b2640fe5a77059140ab7860a6f',
-      webrtc: 0
+      webrtc: 1
     }
 
     // debug 模式支持输入传送门链接进入
