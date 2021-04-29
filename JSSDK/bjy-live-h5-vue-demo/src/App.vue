@@ -107,15 +107,16 @@ export default {
     console.log('*   sign签名规则：https://dev.baijiayun.com/wiki/detail/1')
     console.log('******************************************************************************')
     var options = {
-      prefixName: '',
-      env: 'production',
-      room_id: '20121042083339',
-      user_number: '187',
-      user_avatar: '//img.baijiayun.com/0bjcloud/live/avatar/v2/teacher.png',
-      user_name: '童书洋',
-      user_role: 0,
-      sign: 'a49c80b2640fe5a77059140ab7860a6f',
-      webrtc: 1
+    
+      prefixName: 'tiansujing',
+            env: 'production',
+            room_id: '19112041735674',
+            user_number: '0',
+            user_avatar: '//img.baijiayun.com/0bjcloud/live/avatar/v2/teacher.png',
+            user_name: '游客',
+            user_role: 0,
+            sign: '731f5299af5179f99a17746f7c1bd20e',
+            webrtc: 1
     }
 
     // debug 模式支持输入传送门链接进入
