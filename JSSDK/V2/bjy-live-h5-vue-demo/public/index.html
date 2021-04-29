@@ -9,66 +9,66 @@
         <!-- 使用任何组件都应该引入此基本样式文件 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/classroom/classroom.css"
         />
 
         <!-- 其他组件样式根据需要引入 -->
         <!-- loading样式 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/loading/live/Loading.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/loading/live/Loading.css"
         />
         <!-- 用户列表 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/user/userList/UserList.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/user/userList/UserList.css"
         />
         <!-- 聊天列表 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/message/messageList/MessageList.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/message/messageList/MessageList.css"
         />
         <!-- 聊天发送 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/message/messageSender/MessageSender.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/message/messageSender/MessageSender.css"
         />
         <!-- 问答 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/questionAnswer/QuestionAnswer.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/questionAnswer/QuestionAnswer.css"
         />
         <!-- 白板样式 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.54.0/whiteboard/Whiteboard.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/whiteboard/Whiteboard.css"
         />
         <!-- 答题器学生端样式 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/answer/student.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/answer/student.css"
         />
         <!-- 小测 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/quiz/student.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/quiz/student.css"
         />
 
         <!-- 公告 -->
         <link
             rel="stylesheet"
-            href="//live-cdn.baijiayun.com/js-sdk/1.41.3/notice/Notice.css"
+            href="//live-cdn.baijiayun.com/js-sdk/1.64.0/notice/Notice.css"
         />
 
         <!-- h5播放器 -->
-        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.41.3/player/theme/H5.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.64.0/player/theme/H5.css"/>
 
         <!-- 互动组件 红包雨 点赞 奖励 -->
-        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.41.3/interaction/Interaction.css"/>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.64.0/interaction/Interaction.css"/>
 
         <!-- 抽奖 中奖动画、中奖记录-->
-        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.41.3/lottery/Lottery.css"></script>
-        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.41.3/lottery/LotteryHit.css"></script>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.64.0/lottery/Lottery.css"></script>
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.64.0/lottery/LotteryHit.css"></script>
 
         <title>bjy-live-h5-vue-demo</title>
 
@@ -88,60 +88,60 @@
         <!-- built files will be auto injected -->
 
         <!-- 本 SDK 需要使用 JQuery 库，因此在使用之前首先引入 JQuery 文件 -->
-        <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+        <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
         <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/classroom/classroom.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/classroom/classroom.js"></script>
         <!-- 如果你需要使用webrtc拓展，你需要先引入这个依赖 -->
-        <script src="//live-cdn.baijiayun.com/realtimecat/1.0.6/realtimecat.js"></script>
+        <script src="//live-cdn.baijiayun.com/realtimecat/1.0.19/realtimecat.js"></script>
 
         <!-- 使用组件时应引入对应的依赖, 如：加载loading组件需引入以下依赖 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/loading/live/Loading.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/loading/live/Loading.js"></script>
         <!-- 用户列表、聊天列表、聊天发送 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/user/userList/UserList.js"></script>
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/message/messageList/MessageList.js"></script>
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/message/messageSender/MessageSender.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/user/userList/UserList.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/message/messageList/MessageList.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/message/messageSender/MessageSender.js"></script>
         <!-- 问答-->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/questionAnswer/QuestionAnswer.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/questionAnswer/QuestionAnswer.js"></script>
 
         <!-- 学生端小测 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/quiz/student.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/quiz/student.js"></script>
 
         <!-- 播放器相关依赖 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/player/player.js"></script>
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/player/core/Player.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/player/player.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/player/core/Player.js"></script>
 
         <!-- 用户推拉流相关 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/user/userPublish.js"></script>
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/user/userStatus.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/user/userPublish.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/user/userStatus.js"></script>
 
         <!-- 弹幕组件 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/barrage/Barrage.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/barrage/Barrage.js"></script>
         <!-- 白板 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/component/canvas/Canvas.js"></script>
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.54.0/whiteboard/Whiteboard.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/component/canvas/Canvas.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/whiteboard/Whiteboard.js"></script>
 
         <!-- 公告 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/notice/Notice.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/notice/Notice.js"></script>
         <!-- 答题器 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/answer/student.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/answer/student.js"></script>
 
         <!-- h5播放器拓展 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/player/extension/html.js"></script>
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/player/theme/H5.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/player/extension/html.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/player/theme/H5.js"></script>
 
         <!-- 互动组件 红包雨 点赞 奖励 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/interaction/Interaction.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/interaction/Interaction.js"></script>
 
         <!-- 抽奖 中奖动画、中奖记录-->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/lottery/Lottery.js"></script>
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.3/lottery/LotteryHit.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/lottery/Lottery.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/lottery/LotteryHit.js"></script>
 
         <!-- 专注度检测 -->
-        <script src="//live-cdn.baijiayun.com/js-sdk/1.41.0/attentionDetection/AttentionDetection.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/1.64.0/attentionDetection/AttentionDetection.js"></script>
 
         <!-- sdk源地址 请求图片使用 -->
         <script>
-            BJY.cdnOrigin = '//live-cdn.baijiayun.com/js-sdk/1.41.3';
+            BJY.cdnOrigin = '//live-cdn.baijiayun.com/js-sdk/1.64.0';
         </script>
     </body>
 </html>

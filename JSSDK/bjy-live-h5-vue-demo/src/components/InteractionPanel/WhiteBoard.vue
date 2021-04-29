@@ -61,13 +61,13 @@ export default {
       fit: 1,
       keepSize: false,
       // 给静态文档添加水印，如不需要可忽略。sdkVersion >= 0.3.1
-      watermark: {
-        text: 'text', // 水印文字，必传，不宜过长，否则阿里云图片处理会出错
-        opacity: 8, // 可选，透明度
-        size: 36, // 可选，字号
-        rotate: 20, // 可选，旋转角度
-        fill: 1 // 可选，是否铺满 0/1，默认1
-      }
+      // watermark: {
+      //   text: 'text', // 水印文字，必传，不宜过长，否则阿里云图片处理会出错
+      //   opacity: 8, // 可选，透明度
+      //   size: 36, // 可选，字号
+      //   rotate: 20, // 可选，旋转角度
+      //   fill: 1 // 可选，是否铺满 0/1，默认1
+      // }
     })
   },
   beforeDestroy () {}

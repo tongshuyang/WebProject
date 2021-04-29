@@ -116,9 +116,9 @@ export default {
   },
   created () {
     var options = {
-      token: 'hU0pHY-mmolhp9iW7Rdvm98HCZiF_UnsmAcJYGJdsUYC3qmAFBygSHWgMrVZkj70VgdbeTyC4_AKp0fXMnVKLQ',
-      classId: '20120244416469',
-      sessionId: 202012070,
+      token: '5r5Yh8BTcYyBudBP2dQHRRvMUSzq_H4rmG8Yqjc_IrII3OpVxJ1ylfo1hkC-1TfLCqdH1zJ1Si0',
+      classId: '21041673751766',
+      sessionId: -1,
       prefixName: ''
     }
 

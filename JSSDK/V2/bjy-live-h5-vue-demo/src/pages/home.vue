@@ -124,16 +124,16 @@ export default {
       "******************************************************************************"
     );
     var options = {
-      prefixName: "e74839313",
-      env: "production",
-      room_id: "21030980034604",
-      user_number: 18700,
-      user_avatar: "https://img.baijiayun.com/0bjcloud/live/avatar/v2/121.jpg",
-      user_name: "test001",
-      user_role: 0,
-      sign: "f6264e2128cea5800d1e22b37a2a8c30",
-      webrtc: 0,
-    };
+        prefixName: 'e70655665',
+        env: 'production',
+        room_id: '20121042083339',
+        user_number: 187,
+        user_avatar: 'https://img.baijiayun.com/0bjcloud/live/avatar/v2/103.jpg',
+        user_name: 'student',
+        user_role: 0,
+        sign: '6ba34a2e6a08e4baeb4e957b4fcec31d',
+        webrtc: 1
+      }
 
     // debug 模式支持输入传送门链接进入
     // 非webrtc大班课需要在url后拼上 &webrtc=0

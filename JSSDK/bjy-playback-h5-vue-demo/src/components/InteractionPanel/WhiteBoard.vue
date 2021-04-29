@@ -51,7 +51,8 @@ export default {
   mounted () {
     // 新版白板
     BJY.Whiteboard.create({
-        element: $('#whiteboard .placeholder')
+        element: $('#whiteboard .placeholder'),
+        fit: 1
     });
   },
   beforeDestroy () {}

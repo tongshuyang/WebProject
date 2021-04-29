@@ -98,40 +98,22 @@ export default {
     }
   },
   created () {
-    console.log('******************************************************************************')
-    console.log('*   欢迎使用 BJY JS SDK - 百家云直播 - ' + BJY.version)
-    console.log('*   API 文档：https://www.baijiayun.com/js-sdk/doc/#/README')
-    console.log('*   版本更新日志：https://www.baijiayun.com/js-sdk/doc/#/change-log')
-    console.log('*   常见问题：https://www.baijiayun.com/js-sdk/doc/#/live?id=%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98')
-    console.log('*   注意事项：H5 Demo 需要在真机上预览，PC上不支持m3u8流类型， 自己创建教室测试时，注意非webrtc类型教室传入webrtc: 0')
-    console.log('*   sign签名规则：https://dev.baijiayun.com/wiki/detail/1')
-    console.log('******************************************************************************')
     var options = {
-    
-      prefixName: 'tiansujing',
-            env: 'production',
-            room_id: '19112041735674',
-            user_number: '0',
-            user_avatar: '//img.baijiayun.com/0bjcloud/live/avatar/v2/teacher.png',
-            user_name: '游客',
-            user_role: 0,
-            sign: '731f5299af5179f99a17746f7c1bd20e',
-            webrtc: 1
-    }
-
-    // debug 模式支持输入传送门链接进入
-    // 非webrtc大班课需要在url后拼上 &webrtc=0
-    if (location.href.includes('debug=1')) {
-      var url = prompt('输入传送门链接进入教室,webrtc课程请在链接后加上&webrtc=1')
-      options = Object.assign(options, this.urlParser(url))
-      console.log(options)
-    }
+        prefixName: 'e70655665',
+        env: 'production',
+        room_id: '20121042083339',
+        user_number: 187,
+        user_avatar: 'https://img.baijiayun.com/0bjcloud/live/avatar/v2/103.jpg',
+        user_name: 'student',
+        user_role: 0,
+        sign: '6ba34a2e6a08e4baeb4e957b4fcec31d',
+        webrtc: 1
+      }
 
     var classOption = {
       // 必须为字符串
       id: options.room_id
     }
-
     if (Number(options.webrtc)) {
       classOption.webrtcType = Number(options.webrtc)
     }
@@ -142,7 +124,7 @@ export default {
       class: classOption,
       user: {
         number: options.user_number,
-        // avatar: decodeURIComponent(options.user_avatar),
+        avatar: decodeURIComponent(options.user_avatar),
         name: decodeURIComponent(options.user_name),
         type: Number(options.user_role)
       },

@@ -40,7 +40,7 @@
             user_name: '游客',
             user_role: 0,
             sign: '6aa2271c50980033318ecd038b5e6d12',
-            webrtc: 1
+            webrtc: 0
         };
 
         //初始化房间
@@ -85,9 +85,7 @@
                             // 音视频发布用户（一般为老师）
                             user: store.get('teacher'),
                             // 播放器扩展
-                            extension: Player.html,
-                            //不上麦拉合流
-                            isWebRTCMix: true
+                            extension: Player.html
                         });
                     }
                 }

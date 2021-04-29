@@ -1,21 +1,13 @@
 <template>
-  <div id="h5-player">
-  </div>
+  <div id="h5-player"></div>
 </template>
 
 <script>
-
-var eventEmitter = BJY.eventEmitter
-// store 存储着系统的权限信息
-var store = BJY.store
-// 获取创建播放器的 Player 对象
-var Player = BJY.Player
-var teacherH5Player
+let eventEmitter = BJY.eventEmitter;
 
 export default {
-  components: {
-  },
-  data () {
+  components: {},
+  data() {
     return {
       started: false
     }
@@ -23,18 +15,37 @@ export default {
   computed: {},
   watch: {},
   methods: {
-  },
-  created () {
-  },
-  mounted () {
-    window.player = teacherH5Player = BJY.H5Player.create({
-        element: $('#h5-player'),
+    //   创建老师播放器
+    createTeacherPlayer() {
+        let player = new BJY.H5Player.create({
+        element: $("#h5-player"),
         showControls: false,
-        poster: '//img.baijiayun.com/0bjcloud/live/avatar/v2/teacher.png'
-    })
+        poster: "",
+      })
+    }
   },
-  beforeDestroy () { }
-}
+  created() {
+  },
+  mounted() {
+    eventEmitter.on(
+      // 老师打开了媒体
+      eventEmitter.TEACHER_MEDIA_ON,
+      () => {
+        // if (this.player) {
+        //   this.player.destroy()
+        // }
+        this.createTeacherPlayer()
+      }
+    )
+    this.createTeacherPlayer()
+    // var teacherH5Player = window.player = BJY.H5Player.create({
+    //     element: $('#h5-player'),
+    //     showControls: false,
+    //     poster: ''
+    // })
+  },
+  beforeDestroy() {},
+};
 </script>
 
 <style lang='scss'>
