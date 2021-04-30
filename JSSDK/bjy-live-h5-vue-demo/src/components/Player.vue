@@ -38,11 +38,6 @@ export default {
       }
     )
     this.createTeacherPlayer()
-    // var teacherH5Player = window.player = BJY.H5Player.create({
-    //     element: $('#h5-player'),
-    //     showControls: false,
-    //     poster: ''
-    // })
   },
   beforeDestroy() {},
 };
