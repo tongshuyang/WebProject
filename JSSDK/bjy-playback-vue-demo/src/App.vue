@@ -1,30 +1,49 @@
 <template>
   <div id="app">
-    <Loading @loaded="loadFinished()"/>
+    <Loading @loaded="loadFinished()" />
     <div v-if="loaded" id="main">
       <!-- 白板区域 -->
       <div class="left-panel">
-        <Barrage ref="barrage"/>
+        <Barrage ref="barrage" />
         <WhiteBoard />
       </div>
       <!-- 右侧交互区域 -->
       <div class="right-panel">
         <!-- 播放器 -->
         <div class="player-panel">
-          <Player ref="player" @getDuration="mountSlider = true" :videoData="videoData"/>
+          <Player
+            ref="player"
+            @getDuration="mountSlider = true"
+            :videoData="videoData"
+          />
         </div>
         <!-- 聊天列表、用户列表、发言列表、公告、问答等 -->
         <div class="interaction-panel">
           <div class="tab-title">
-            <span @click="setTab('user')" class="title" :class="{'active': checkActiveTab('user')}">用户列表</span>
-            <span @click="setTab('message')" class="title" :class="{'active': checkActiveTab('message')}">聊天</span>
-            <span @click="setTab('action')" class="title" :class="{'active': checkActiveTab('action')}">发言列表</span>
+            <span
+              @click="setTab('user')"
+              class="title"
+              :class="{ active: checkActiveTab('user') }"
+              >用户列表</span
+            >
+            <span
+              @click="setTab('message')"
+              class="title"
+              :class="{ active: checkActiveTab('message') }"
+              >聊天</span
+            >
+            <span
+              @click="setTab('action')"
+              class="title"
+              :class="{ active: checkActiveTab('action') }"
+              >发言列表</span
+            >
           </div>
           <div class="tab-body">
             <div class="tab-item" v-show="activeTab === 'user'">
               <UserList />
             </div>
-            <div class="tab-item"  v-show="activeTab === 'message'">
+            <div class="tab-item" v-show="activeTab === 'message'">
               <MessageList />
             </div>
             <div class="tab-item" v-show="activeTab === 'action'">
@@ -45,21 +64,45 @@
           </div>
         </span>
         <!-- 播放暂停 -->
-        <i @click="togglePlay()" class="icon" :class="isPlaying ? 'icon-play' : 'icon-pause'"></i>
+        <i
+          @click="togglePlay()"
+          class="icon"
+          :class="isPlaying ? 'icon-play' : 'icon-pause'"
+        ></i>
         <!-- 控制条 -->
         <PlayerSlider v-if="mountSlider" @changeStatus="updateStatus($event)" />
         <!-- 弹幕 -->
-        <i @click="toggleBarrage()" class="icon" :class="barrageOn ? 'icon-barrage-on' : 'icon-barrage-off'"></i>
+        <i
+          @click="toggleBarrage()"
+          class="icon"
+          :class="barrageOn ? 'icon-barrage-on' : 'icon-barrage-off'"
+        ></i>
         <!-- 倍速 -->
-        <select v-model="currentSpeed" name="speed" id="speed-control" title="速度">
+        <select
+          v-model="currentSpeed"
+          name="speed"
+          id="speed-control"
+          title="速度"
+        >
           <option value="0.5">0.5X</option>
           <option value="1">1.0X</option>
           <option value="1.5">1.5X</option>
           <option value="2">2.0X</option>
         </select>
         <!-- 清晰度 -->
-        <select v-model="currentQuality" name="quality" id="quality-control" title="清晰度">
-          <option v-for="(item, index) in qualityList" :key="index" :value="item.type">{{item.name}}</option>
+        <select
+          v-model="currentQuality"
+          name="quality"
+          id="quality-control"
+          title="清晰度"
+        >
+          <option
+            v-for="(item, index) in qualityList"
+            :key="index"
+            :value="item.type"
+          >
+            {{ item.name }}
+          </option>
         </select>
       </div>
 
@@ -70,21 +113,21 @@
 </template>
 
 <script>
-import Loading from './components/Loading'
-import WhiteBoard from './components/WhiteBoard'
-import Player from './components/Player'
-import UserList from './components/UserList'
-import MessageList from './components/MessageList'
-import Notice from './components/Notice'
-import QuestionAnswer from './components/QuestionAnswer'
-import PlayerSlider from './components/PlayerSlider'
-import VolumeSlider from './components/VolumeSlider'
-import ModalPanel from './components/ModalPanel'
-import ActiveList from './components/ActiveList'
-import Barrage from './components/Barrage'
+import Loading from "./components/Loading";
+import WhiteBoard from "./components/WhiteBoard";
+import Player from "./components/Player";
+import UserList from "./components/UserList";
+import MessageList from "./components/MessageList";
+import Notice from "./components/Notice";
+import QuestionAnswer from "./components/QuestionAnswer";
+import PlayerSlider from "./components/PlayerSlider";
+import VolumeSlider from "./components/VolumeSlider";
+import ModalPanel from "./components/ModalPanel";
+import ActiveList from "./components/ActiveList";
+import Barrage from "./components/Barrage";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Loading,
     WhiteBoard,
@@ -97,141 +140,142 @@ export default {
     VolumeSlider,
     ModalPanel,
     ActiveList,
-    Barrage
+    Barrage,
   },
-  data () {
+  data() {
     return {
       loaded: false,
-      activeTab: 'message',
+      activeTab: "message",
       // 视频资源，作为props传给Player组件
       videoData: null,
       showVolumeSlider: false,
       isPlaying: false,
       qualityList: [],
-      currentQuality: '',
+      currentQuality: "",
       currentSpeed: 1,
       mountSlider: false,
-      barrageOn: false
-    }
+      barrageOn: false,
+    };
   },
-  created () {
-    var options = {
-      token: '5r5Yh8BTcYyBudBP2dQHRRvMUSzq_H4rmG8Yqjc_IrII3OpVxJ1ylfo1hkC-1TfLCqdH1zJ1Si0',
-      classId: '21041673751766',
-      sessionId: -1,
-      prefixName: ''
-    }
+  created() {
+        var options = {
+            token:
+                "kgmfmLY6n-xhp9iW7Rdvm2O6jv5wAF3VXpYHZM7T6PnggeSJwEwbCqlEA8fOYEEEi9A9-FpqVnYKp0fXMnVKLQ",
+            classId: "20121042083339",
+            sessionId: "202104280",
+            prefixName: 'e70655665'
+        }
 
     // 给一个调试入口，从url的query读取: url里面包含debug=1的话可以使用url进入
-    if (location.href.includes('debug=1')) {
+    if (location.href.includes("debug=1")) {
       // <!-- 这里给一个测试入口：输入回放的url即可测试对应的回放 -->
-      var url = prompt('输入回放url以测试')
+      var url = prompt("输入回放url以测试");
       // 有回放链接用回放链接，没有回放链接用我们的测试用例
       if (url) {
-        var params = this.getQuery(url)
-        options.token = params.token
-        options.classId = params.classid
-        options.sessionId = Number(params.session_id)
-        options.prefixName = params.prefixName
+        var params = this.getQuery(url);
+        options.token = params.token;
+        options.classId = params.classid;
+        options.sessionId = Number(params.session_id);
+        options.prefixName = params.prefixName;
       }
-      console.log(options)
+      console.log(options);
     }
 
     BJY.playback
       .init({
-        env: 'production',
+        env: "production",
         privateDomainPrefix: options.prefixName,
         token: options.token,
         class: {
           id: options.classId,
-          sessionId: options.sessionId
+          sessionId: options.sessionId,
         },
         useEncrypt: true,
         user: {
-          number: '13147056',
+          number: "13147056",
           avatar:
-            'http://static.sunlands.com/newUserImagePath/13147056/40_40/13147056.jpg',
-          name: 'soyung',
-          type: 0
-        }
+            "http://static.sunlands.com/newUserImagePath/13147056/40_40/13147056.jpg",
+          name: "soyung",
+          type: 0,
+        },
       })
       .then((data) => {
-        BJY.playback.start()
-        console.log(data)
-        this.videoData = data
-        this.qualityList = data.definition
-        this.currentQuality = data.defaultDefinition
-        this.loaded = true
-      })
+        BJY.playback.start();
+        console.log(data);
+        this.videoData = data;
+        this.qualityList = data.definition;
+        this.currentQuality = data.defaultDefinition;
+        this.loaded = true;
+      });
   },
-  mounted () {
-  },
+  mounted() {},
   methods: {
-    loadFinished () {
-      $('#main').css('opacity', 1)
+    loadFinished() {
+      $("#main").css("opacity", 1);
     },
-    checkActiveTab (tab) {
-      return this.activeTab === tab
+    checkActiveTab(tab) {
+      return this.activeTab === tab;
     },
-    setTab (tab) {
-      this.activeTab = tab
+    setTab(tab) {
+      this.activeTab = tab;
     },
-    toggleVolumeSlider () {
-      this.showVolumeSlider = !this.showVolumeSlider
+    toggleVolumeSlider() {
+      this.showVolumeSlider = !this.showVolumeSlider;
     },
-    toggleBarrage () {
-      this.$refs.barrage.toggleBarrage()
-      this.barrageOn = !this.barrageOn
+    toggleBarrage() {
+      this.$refs.barrage.toggleBarrage();
+      this.barrageOn = !this.barrageOn;
     },
-    togglePlay () {
-      let video = this.$refs.player
-      video.isPlaying() ? video.pause() : video.play()
-      this.isPlaying = video.isPlaying()
+    togglePlay() {
+      let video = this.$refs.player;
+      video.isPlaying() ? video.pause() : video.play();
+      this.isPlaying = video.isPlaying();
     },
-    updateStatus (state) {
-      this.isPlaying = state
+    updateStatus(state) {
+      this.isPlaying = state;
     },
-    getQuery (url) {
-      var query = url.split('?')[1]
+    getQuery(url) {
+      var query = url.split("?")[1];
       // 获取自定义域名
-      var prefixName = url.split('.')[0].split('//')[1]
+      var prefixName = url.split(".")[0].split("//")[1];
 
-      var list = query.split('&')
+      var list = query.split("&");
       var params = {
-        prefixName: prefixName
-      }
-      list.forEach(item => {
-        var pair = item.split('=')
-        params[pair[0]] = pair[1]
-      })
-      return params
-    }
+        prefixName: prefixName,
+      };
+      list.forEach((item) => {
+        var pair = item.split("=");
+        params[pair[0]] = pair[1];
+      });
+      return params;
+    },
   },
   watch: {
-    currentQuality (newValue, oldValue) {
-      console.log('清晰度切换为：' + newValue)
-      this.isPlaying = false
+    currentQuality(newValue, oldValue) {
+      console.log("清晰度切换为：" + newValue);
+      this.isPlaying = false;
       if (this.$refs.player) {
-        this.$refs.player.changeQuality(newValue)
+        this.$refs.player.changeQuality(newValue);
       }
     },
-    currentSpeed (newValue, oldValue) {
-      console.log('播放速度切换为：' + newValue)
+    currentSpeed(newValue, oldValue) {
+      console.log("播放速度切换为：" + newValue);
       if (window.video) {
-        window.video.playbackRate = newValue || 1
+        window.video.playbackRate = newValue || 1;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import './assets/iconfont/iconfont.css';
+@import "./assets/iconfont/iconfont.css";
 * {
   padding: 0;
   margin: 0;
 }
-html, body{
+html,
+body {
   width: 100%;
   height: 100%;
 

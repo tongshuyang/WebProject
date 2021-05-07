@@ -66,11 +66,11 @@ export default {
     created() {
         var options = {
             token:
-                "T4Ivx-DIWjgmvvoNNdcydzf3LcMMPzYEc4GNHnOv-QuVbTLv8dzJe_eqCFuUfaIw0nPLBgfsrQMKp0fXMnVKLQ",
-            classId: "18070683424562",
-            sessionId: 201807200,
-            prefixName: ''
-        };
+                "kgmfmLY6n-xhp9iW7Rdvm2O6jv5wAF3VXpYHZM7T6PnggeSJwEwbCqlEA8fOYEEEi9A9-FpqVnYKp0fXMnVKLQ",
+            classId: "20121042083339",
+            sessionId: "202104280",
+            prefixName: 'e70655665'
+        }
 
         if (location.href.includes('debug=1')) {
             // <!-- 这里给一个测试入口：输入回放的url即可测试对应的回放 -->
