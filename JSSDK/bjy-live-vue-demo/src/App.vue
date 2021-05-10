@@ -214,6 +214,8 @@ export default {
       console.log('******************************************************************************')
       console.log('*   欢迎使用 BJY JS SDK - 百家云直播 - ' + BJY.version)
       console.log('*   API 文档：https://www.baijiayun.com/js-sdk/doc/#/README')
+      console.log('*   版本更新日志：https://www.baijiayun.com/js-sdk/doc/#/change-log')
+      console.log('*   常见问题：https://www.baijiayun.com/js-sdk/doc/#/live?id=%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98')
       console.log('*   注意事项：自己创建教室测试时，注意非webrtc类型教室传入webrtc: 0')
       console.log('*   sign签名规则：https://dev.baijiayun.com/wiki/detail/1')
       console.log('******************************************************************************')
