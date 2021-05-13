@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta https-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- 引入对应样式 -->
+    <!-- 教室 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.css">
+    <!-- loading -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/loading/playback/Loading.css">
+    <!-- 白板 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/whiteboard/Whiteboard.css">
+    <!-- 用户列表 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/user/userList/UserList.css">
+    <!-- 公告 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/notice/Notice.css">
+    <!-- 聊天 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/message/messageList/MessageList.css">
+    <!-- 控制条 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/playback/playerSlider/PlayerSlider.css">
+    <!-- 音量控制 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/setting/volumeSlider/VolumeSlider.css">
+    <!-- 问答 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/questionAnswer/QuestionAnswer.css">
+    <!-- 答题器 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/answer/student.css">
+    <!-- 测验 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/quiz/student.css">
+    <!-- 发言列表 -->
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/user/activeList/ActiveList.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.65.0/player/theme/Default.css">
+
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 引入对应脚本 -->
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <!-- 进入教室 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.js"></script>
+    <!-- 回放 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/playback/playback.js"></script>
+    <!-- webrtc依赖 -->
+    <script src="//live-cdn.baijiayun.com/realtimecat/1.0.19/realtimecat.js"></script>
+
+
+    <!-- 播放器相关依赖 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/user/userPublish.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/player/core/Player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/player/player.js"></script>
+
+    <!-- 用户推拉流相关 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/user/userStatus.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/player/theme/Default.js"></script>
+
+    <!-- loading -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/loading/playback/Loading.js"></script>
+    <!-- 使用新白板（画笔工具）需要引入canvas依赖 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/component/canvas/Canvas.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/component/canvas/toolBar/ToolBar.js"></script>
+    <!-- 白板 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/whiteboard/Whiteboard.js"></script>
+    <!-- 用户列表集成 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/user/userList/UserList.js"></script>
+    <!-- 公告 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/notice/Notice.js"></script>
+    <!-- 发言列表 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/user/activeList/ActiveList.js"></script>
+    <!-- 聊天 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/message/messageList/MessageList.js"></script>
+    <!-- 控制条 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/playback/playerSlider/PlayerSlider.js"></script>
+    <!-- 播放器 -->
+    <script src="//www.baijiayun.com/m/playback/dep/dplayer/1.25/flv.min.js"></script>
+    <!-- 音量控制 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/setting/volumeSlider/VolumeSlider.js"></script>
+    <!-- 弹幕 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/barrage/Barrage.js"></script>
+    <!-- 问答 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/questionAnswer/QuestionAnswer.js"></script>
+    <!-- 答题器-->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/answer/student.js"></script>
+    <!-- 测验 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/quiz/student.js"></script>
+
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/cef/cef.js"></script>
+    <!-- falsh 依赖 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/player/extension/flash.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.65.0/player/extension/webrtc/webrtc.js"></script>
+
+  </body>
+</html>

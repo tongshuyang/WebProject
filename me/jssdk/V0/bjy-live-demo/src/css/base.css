@@ -1,0 +1,208 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font: 12px/1.5714285714285714 PingFangSC-Light,'helvetica neue','hiragino sans gb',tahoma,'microsoft yahei ui','microsoft yahei',simsun,sans-serif;
+}
+
+label {
+    margin-bottom: 0;
+}
+
+/*进度条样式*/
+#loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 646px;
+    min-width: 1200px;
+    margin: 0 auto;
+    opacity: 0;
+    background: url('../img/class-panel-bg.jpg');
+}
+
+/*右边样式*/
+.side-panel {
+    position: absolute;
+    width: 280px;
+    top: 0;
+    right: 0;
+    bottom: 40px;
+    padding: 0 7px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: -2px 0 6px rgba(0, 0, 0, .2);
+}
+
+.mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, .2);
+}
+
+/*提示*/
+#main .tip {
+    background-color: #6D6D6E;
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 18px;
+    padding:8px;
+    text-align: center;
+    z-index: 2;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#main .tip > .text {
+    line-height: 1;
+}
+
+/*对话框*/
+.dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    user-select: none;
+    box-shadow: 0 0 18px #000;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+}
+.dialog-hide {
+    margin-left: -5000px !important;
+}
+.dialog .header {
+    width: 100%;
+    height: 30px;
+    background: #313339;
+    color: #fff;
+    font-size: 14px;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.dialog .body {
+    background: #fff;
+}
+.dialog .title {
+    position: absolute;
+    left: 20px;
+    top: 0;
+
+    height: 30px;
+    line-height: 30px;
+}
+.dialog .close,
+.dialog .minimize {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #fff;
+    opacity: 1;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    transition: background-color .5s;
+}
+.dialog .minimize {
+    right: 30px;
+}
+.dialog .minimize:hover {
+    background-color: #535c78;
+    cursor: pointer;
+}
+.dialog .close:hover {
+    background-color: #535c78;
+    cursor: pointer;
+    border-top-right-radius: 5px;
+}
+
+.dialog .list {
+    overflow: scroll;
+    font-size: 12px;
+    padding-left: 7px;
+    padding-top: 10px;
+}
+.dialog .list li {
+    width: 100%;
+    height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dialog .list .program-select-img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 0 4px;
+}
+.dialog .list label {
+    width: 100%;
+    padding-left: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dialog .actions {
+    text-align: center;
+    padding: 10px 0;
+}
+.btn-confirm {
+    display: inline-block;
+    padding: 1px 12px;
+    border-radius: 4px;
+    color: #fff;
+    border: 1px solid #db851f;
+    background-color: #ff7b00;
+    cursor: pointer;
+}
+
+.dialog .call-text {
+    text-align: center;
+    font-size: 13px;
+    padding: 6px;
+}
+.dialog #call-time {
+    width: 35px;
+}
+
+.dialog .call-result {
+    width: 90%;
+    margin-left: 5%;
+}
+.dialog .content {
+    overflow: scroll;
+}
+.dialog th {
+    height: 35px;
+    text-align: center;
+    font-size: 15px;
+    background: #ebebeb;
+}
+.dialog td {
+    height: 35px;
+    text-align: center;
+    font-size: 12px;
+    color: #9d9d9d;
+}
+

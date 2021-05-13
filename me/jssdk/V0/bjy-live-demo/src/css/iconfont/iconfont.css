@@ -1,0 +1,57 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1581486890058'); /* IE9 */
+  src: url('iconfont.eot?t=1581486890058#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,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') format('woff2'),
+  url('iconfont.woff?t=1581486890058') format('woff'),
+  url('iconfont.ttf?t=1581486890058') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1581486890058#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.icon {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-send-image:before {
+  content: "\e719";
+}
+
+.icon-answer-machine:before {
+  content: "\e67a";
+}
+
+.icon-roll-call:before {
+  content: "\e67c";
+}
+
+.icon-full-screen:before {
+  content: "\e7a6";
+}
+
+.icon-emotion:before {
+  content: "\e632";
+}
+
+.icon-barrage-off:before {
+  content: "\e696";
+}
+
+.icon-barrage-on:before {
+  content: "\e697";
+}
+
+.icon-hand-up:before {
+  content: "\e693";
+}
+
+.icon-share:before {
+  content: "\e746";
+}
+
+.icon-setting:before {
+  content: "\e611";
+}
+

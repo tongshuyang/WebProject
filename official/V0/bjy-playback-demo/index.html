@@ -1,0 +1,166 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Demo 示例</title>
+        <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+        <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="icomoon/style.css"/>
+        <link rel="stylesheet" type="text/css" href="./src/css/style.css"/>
+        <link >
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/classroom/classroom.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/loading/playback/Loading.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userList/UserList.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageList/MessageList.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/notice/Notice.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageSender/MessageSender.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/setting/menu/menu.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/newWhiteboard/whiteboard.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/playback/newPlayerSlider/PlayerSlider.css">
+        <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/0.52.0/setting/volumeSlider/VolumeSlider.css">
+        <link href="//vjs.zencdn.net/5.19/video-js.min.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <div id="loading">
+            <div class="placeholder"></div>
+        </div>
+
+        <div id="main">
+            <div class="main-content">
+                <div class="right">
+                    <!-- 若需要使用 h5 播放器，请参考配置文档设置 若需要视频控制条，在video标签内加 controls 即可-->
+                    <div id="flash-player">
+                        <video id="bjy-player-teacher" class="video-js" controlsList="nodownload"
+                               preload="auto" width="400"
+                               height="300">
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a
+                                web browser that
+                                <a href="http://videojs.com/html5-video-support/" target="_blank">
+                                    supports HTML5 video
+                                </a>
+                            </p>
+                        </video>
+                        <!-- 播放器幕布，为了好看，当未创建播放器时提供一个界面 -->
+                        <div id="player-screen">
+                            <img class="picture" src="./src/img/picture.jpg">
+                        </div>
+                    </div>
+
+                    <div id="flash-player-user">
+                        <video id="bjy-player-user" class="video-js" controls preload="auto" width="400" height="300">
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a
+                                web browser that
+                                <a href="http://videojs.com/html5-video-support/" target="_blank">
+                                    supports HTML5 video
+                                </a>
+                            </p>
+                        </video>
+                        <!-- 播放器幕布，为了好看，当未创建播放器时提供一个界面 -->
+                        <div id="player-screen-user">
+                            <img class="picture" src="./src/img/picture.jpg">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="list-section">
+                    <div class="list">
+                        <div class="tab">
+                            <span id="btn-user-list" class="tab-list">用户列表</span>
+                            <span id="btn-message-list" class="tab-list tab-select">消息列表</span>
+                        </div>
+                        <div class="tab-item">
+                            <div id="list-box" class="tab-content">
+                                <div id="user-list">
+                                    <div class="placeholder"></div>
+                                </div>
+                                <div class="message-box">
+                                    <div id="message-list" >
+                                        <div class="notice-placeholder"></div>
+                                        <div class="placeholder"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="left">
+                    <div id="whiteboard">
+                        <div class="placeholder"></div>
+                    </div>
+                    <div id="barrage"></div>
+                    <div class="barrage-tool">
+                        <label style="color: white">
+                            当前状态：<small class="status badge badge-pill badge-default"></small>
+                        </label>
+
+                        <button id="btn-open">
+                            开启弹幕
+                        </button>
+
+                        <button id="btn-close">
+                            关闭弹幕
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="bjy-volume-container">
+                    <button id="bjy-volume-btn">音量</button>
+                    <div id="bjy-playback-volume-wrapper"></div>
+                </div>
+                <button id="bjy-play-btn">播放</button>
+                <div id="bjy-playback-playslider-wrapper"></div>
+                <div class="bjy-rate-container">
+                    播放速度：
+                    <select id="bjy-speed-selector" title="播放速度">
+                        <option value="0.5">0.5倍</option>
+                        <option value="1" selected>1倍</option>
+                        <option value="2">2倍</option>
+                    </select>
+                </div>
+                <div class="bjy-rate-container">
+                    清晰度：
+                    <select id="bjy-resolution-selector" title="清晰度"></select>
+                </div>
+            </div>
+        </div>
+        <script src="./base/0.0.1/src/base.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/classroom/classroom.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/cef/cef.js"></script>
+
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userList/UserList.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageSender/MessageSender.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/player.js"></script>
+
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/core/Player.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/extension/html.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/player/extension/flash.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/barrage/Barrage.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/message/messageList/MessageList.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/notice/Notice.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/setting/menu/menu.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userSpeak.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/newWhiteboard/whiteboard.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userPublish.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/user/userStatus.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/playback/playback.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/playback/newPlayerSlider/PlayerSlider.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/loading/playback/Loading.js"></script>
+        <script src="//live-cdn.baijiayun.com/js-sdk/0.52.0/setting/volumeSlider/VolumeSlider.js"></script>
+        <script src="//www.baijiayun.com/m/playback/dep/dplayer/1.25/flv.min.js"></script>
+
+        <script>
+            require.config({
+                baseUrl: './src'
+            });
+            require(['main', 'userPanel', 'barrage', 'loading', 'messagePanel', 'noticePanel', 'playerPanel', 'roleMap', 'whiteboard'], function (main) {
+                main.init();
+            });
+        </script>
+    </body>
+</html>
