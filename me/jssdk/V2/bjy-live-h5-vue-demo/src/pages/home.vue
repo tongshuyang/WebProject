@@ -96,7 +96,7 @@ export default {
       isCssFull: false,
       showNotice: false,
       // 是否是ppt为主模版，需要切换ppt和视频位置就将这里设置为true
-      isPptAsMain: true,
+      isPptAsMain: false,
       isRollCalling: false,
       // 点名倒计时
       rollCallCountDown: 10,

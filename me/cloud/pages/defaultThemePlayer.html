@@ -51,7 +51,7 @@
         var auth = BJY.auth;
         var store = BJY.store;
         var eventEmitter = BJY.eventEmitter;
-        var extension = BJY.Player.webrtc;
+        var extension = BJY.auth.isWebRTCMixUser()?BJY.Player.html:BJY.Player.webrtc;
 
 
         //教室参数

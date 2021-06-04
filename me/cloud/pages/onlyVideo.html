@@ -4,25 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>onlyVideo</title>
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/moduleMin.css">
+    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.66.0/moduleMin.css">
 </head>
 
 <body>
     <div id="live-player" style="width:100% ; height:100% "></div>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/moduleMin.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.66.0/moduleMin.js"></script>
     <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.19/realtimecat.js"></script>
     <script type="text/javascript">
         window.cefQuery = null;
         BJYPlayer.init({
             class: {
-                id: 20121042083339,
-                webrtcType: 1
+                id: 21030980034604,
+                    webrtcType: 1
+            },
+            user: {
+                number: 18700,
+                avatar: decodeURIComponent("https://img.baijiayun.com/0bjcloud/live/avatar/v2/121.jpg"),
+                name: decodeURIComponent("test001"),
+                type: Number(0),
             },
             env: 'production',
-            privateDomainPrefix: 'e70655665',
+            privateDomainPrefix: 'e74839313',
             //这里的sign为参数计算的MD5值
-            sign: "f608a83b5284802beda696b55f21116d",
+            sign: "f6264e2128cea5800d1e22b37a2a8c30",
             element: $('#live-player'),
             // 如需选用蓝色主题的播放器，可以指定以下参数，否则可以省略
             // theme: 'blue',

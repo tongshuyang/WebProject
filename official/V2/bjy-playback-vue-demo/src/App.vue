@@ -121,10 +121,10 @@ export default {
   created () {
     var options = {
       token:
-                'T4Ivx-DIWjgmvvoNNdcydzf3LcMMPzYEc4GNHnOv-QuVbTLv8dzJe_eqCFuUfaIw0nPLBgfsrQMKp0fXMnVKLQ',
-      classId: '18070683424562',
-      sessionId: 201807200,
-      prefixName: ''
+                'MZH51SqgYsqFPve3dPbwdsKFrq3py5NyCd2vkL2tlbaC7N_GneCs52IpdqiOEPUKCqdH1zJ1Si0',
+      classId: '21053148413923',
+      sessionId: '',
+      prefixName: 'e95901112'
     }
 
     // 给一个调试入口，从url的query读取: url里面包含debug=1的话可以使用url进入
@@ -160,7 +160,7 @@ export default {
           number: '13147056',
           avatar:
             'http://static.sunlands.com/newUserImagePath/13147056/40_40/13147056.jpg',
-          name: '666',
+          name: 'xxx',
           type: 0
         }
       })

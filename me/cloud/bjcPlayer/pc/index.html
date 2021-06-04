@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>点播pc网页端</title>
+    <link href="https://live-cdn.baijiayun.com/www-video-jssdk/dep/videojs/0.0.6/dist/videojs.css" rel="stylesheet">
+</head>
+
+<style>
+    .bjc-player-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .bjc-player-wrapper .video-js {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<body style="margin: 0;">
+
+    <div id="main" style="width:100%; height:100vh;">
+        <div class="bjc-player-wrapper">
+            <video class="video video-js vjs-default-skin">
+            </video>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://live-cdn.baijiayun.com/www-video-jssdk/dep/videojs/0.0.6/dist/videojs.js"></script>
+    <script src="https://live-cdn.baijiayun.com/www-video-jssdk/0.0.7/bjcPlayer/index.js"></script>
+
+    <script>
+        console.log("*   百家云官网文档地址：https://dev.baijiayun.com/wiki/detail/55#^h0-4");
+        var player = new BjcPlayer($('#main').find('.video'), {
+            token: '8R2nD0bEkOPEV4hhSJUmEMLtAewxMKNsEMIBabyg62x4Z_uQgNkR4g',
+            vid: '70253936',
+            playbackRates: [0.7, 1, 1.2, 1.5, 2], // 倍速 传入 [] 隐藏倍速列表
+            privateDomainPrefix: 'e70655665', // 专属域名前缀 0.0.2版本开始支持
+            onerror: function () {
+                console.log('onplayerror event');
+            },
+            onended: function () {
+                console.log('onplayend event');
+            },
+            onplay: function () {
+                console.log('onplaybegin event');
+            },
+            onpause: function () {
+                console.log('onplaypause event');
+            },
+            ontimeupdate: function (data) {
+                console.log('ontimeupdate event');
+                console.log('currentTime:' + data.currentTime);
+            },
+            onseeked: function (data) {
+                console.log('onseek event');
+                console.log('seekTime:' + data.currentTime);
+            },
+            onerror: function (data) {
+                console.log('onerror event');
+                console.log(data.msg);
+            }
+        });
+    </script>
+</body>
+
+</html>
