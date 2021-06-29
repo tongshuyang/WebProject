@@ -115,12 +115,18 @@ export default {
     }
   },
   created () {
-    var options = {
+    // var options = {
+    //   token:
+    //             'T4Ivx-DIWjgmvvoNNdcydzf3LcMMPzYEc4GNHnOv-QuVbTLv8dzJe_eqCFuUfaIw0nPLBgfsrQMKp0fXMnVKLQ',
+    //   classId: '18070683424562',
+    //   sessionId: 201807200,
+    //   prefixName: ''
+    // }
+        var options = {
       token:
-                'T4Ivx-DIWjgmvvoNNdcydzf3LcMMPzYEc4GNHnOv-QuVbTLv8dzJe_eqCFuUfaIw0nPLBgfsrQMKp0fXMnVKLQ',
-      classId: '18070683424562',
-      sessionId: 201807200,
-      prefixName: ''
+                'Sy6bEyaktCxdENsGVW5J4lLff__vz0t1TNc0i-aZX8355TXXXWL3_3mby3-WfFnZvHaYld5LCvsKp0fXMnVKLQ',
+      classId: '21030362909189',
+      sessionId: '202104080',
     }
 
     // 给一个调试入口，从url的query读取: url里面包含debug=1的话可以使用url进入

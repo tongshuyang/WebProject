@@ -246,9 +246,9 @@ export default {
      * mainSig 用于推摄像头的流
      * assistSig 用于推屏幕分享
      */
-    this.mainSig = ''
+    this.mainSig = 'eJw0ztFKhTAcgPF3*d8Wh212ttOgKwusDHOm1qW2aVOnY5qI0bsHarc-*OD7gbcwOanFaqeAX*gNQtcbaan6SVdaOeCALwh2dsNggAOl9IBRtoW1WgIH9fjMsHLrGsjbJ1HaKhLnwBM4nrO8e2fFf6Fr4JBY*t0VTZ9*matXQboqCv3a5p8j89fg48G8TEtLszJt7uO7I5y0UcAxJYSxs8e8XeftkJwQ-P4FAAD---WCPWU_'
     this.assistSig = ''
-    this.appId = ''
+    this.appId = 'eIK71erzzHd9JRbpfOR5H3R1QvVWlX7a'
 
     /**
      * 没有 roomId 和 userId 直接退出到登录页

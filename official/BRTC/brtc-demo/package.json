@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "NODE_ENV=development node node_modules/.bin/vue-cli-service serve --serve=1",
-    "build": "NODE_ENV=production node node_modules/.bin/vue-cli-service build --release=1 ",
-    "build-dev": "NODE_ENV=development node node_modules/.bin/vue-cli-service build --release=0",
-    "lint": "node node_modules/.bin/vue-cli-service lint"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>whiteBoard</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/toolBar/ToolBar.css">
+
+    <style type="text/css">
+        #painter-tool {
+            position: absolute;
+            box-shadow: 1px 2px 5px rgba(0, 0, 0, .3);
+            left: 80px;
+        }
+
+        #painter-tool .bjy-whiteboard-toolbar {
+            padding: 4px 15px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body style="margin: 0;">
+
+    <div id="whiteboard" style="height: 100vh;">
+        <div class="placeholder"></div>
+    </div>
+
+    <div id="painter-tool">
+        <div class="placeholder"></div>
+    </div>
+
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/Canvas.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/toolBar/ToolBar.js"></script>
+    <script type="text/javascript">
+        console.log("*   百家云官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/whiteboard");
+
+        var query = BJY.query;
+        var pageData = BJY.data.page;
+        var userRoleMap = {};
+        var config = BJY.config;
+        
+        userRoleMap[config.ROLE_TYPE_TEACHER] = {
+            en: 'teacher',
+            cn: '老师'
+        };
+        userRoleMap[config.ROLE_TYPE_ASSISTANT] = {
+            en: 'assistant',
+            cn: '助教'
+        };
+        userRoleMap[config.ROLE_TYPE_STUDENT] = {
+            en: 'student',
+            cn: '学生'
+        };
+        userRoleMap[config.ROLE_TYPE_GUEST] = {
+            en: 'guest',
+            cn: '游客'
+        };
+
+        BJY.auth.canControlMirrorMode = function () {
+            return false;
+        }
+
+        $(document).ready(function () {
+            var eventEmitter = BJY.eventEmitter;
+            eventEmitter
+                .on(
+                    eventEmitter.VIEW_RENDER_TRIGGER,
+                    function () {
+                        // 调用 whiteboard
+                        var whiteBoard = BJY.Whiteboard.create({
+                            element: $('#whiteboard .placeholder'),
+                            //填充模式： 1 自适应  2 撑满容器
+                            fit: 1
+                        });
+
+                        BJY.PainterToolBar.create({
+                            element: $('#painter-tool .placeholder'),
+                            replace: true,
+                            isVertical: false,
+                            canUseSelectTool: true,
+                            canUsePencilTool: true,
+                            canUseShapeTool: true,
+                            canUseFontTool: true,
+                            canUsePaletteTool: true,
+                            canUseDeleteTool: true,
+                            canUsePointTool: true,
+                            canUseFilesTool: false,
+                            canUseBagsTool: false
+                        });
+                    }
+                );
+
+            //教室参数
+            var options = {
+                prefixName: 'e70655665',
+                env: 'production',
+                room_id: '20121042083339',
+                user_number: '0',
+                user_avatar: '',
+                user_name: 'test',
+                user_role: 1,
+                sign: 'ebf62e9b074a38021cfc566ff0ce8309',
+                webrtc: 1
+            }
+            //初始化房间
+            BJY.init({
+                env: options.env,
+                privateDomainPrefix: options.prefixName,
+                class: {
+                    id: options.room_id,
+                        webrtcType: options.webrtc
+                },
+                user: {
+                    number: options.user_number,
+                    avatar: decodeURIComponent(options.user_avatar),
+                    name: decodeURIComponent(options.user_name),
+                    type: Number(options.user_role)
+                },
+                teacher: {
+                    type: 1
+                },
+                sign: options.sign
+            });
+        });
+    </script>
+</body>
+
+</html>
