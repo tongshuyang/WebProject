@@ -4,21 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>whiteBoard</title>
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
     <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.css">
     <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.css">
     <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/toolBar/ToolBar.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/catalogue/Catalogue.css">
 
     <style type="text/css">
         #painter-tool {
             position: absolute;
             box-shadow: 1px 2px 5px rgba(0, 0, 0, .3);
-            left: 80px;
+            right: 50px;
+            top: 30vh;
         }
-
         #painter-tool .bjy-whiteboard-toolbar {
             padding: 4px 15px;
             border-radius: 4px;
+        }
+        #catalogue {
+            width: 120px;
+            height: 100vh;
+            background-color: #F0F0F0;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
@@ -33,11 +42,19 @@
         <div class="placeholder"></div>
     </div>
 
+    <div id="catalogue">
+        <div class="placeholder"></div>
+    </div>
+
     <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.js"></script>
+    <!-- 白板 -->
     <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/Canvas.js"></script>
     <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.js"></script>
+    <!-- 画笔工具 -->
     <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/toolBar/ToolBar.js"></script>
+    <!-- 课件目录 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/catalogue/Catalogue.js"></script>
     <script type="text/javascript">
         console.log("*   百家云官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/whiteboard");
 
@@ -45,7 +62,7 @@
         var pageData = BJY.data.page;
         var userRoleMap = {};
         var config = BJY.config;
-        
+
         userRoleMap[config.ROLE_TYPE_TEACHER] = {
             en: 'teacher',
             cn: '老师'
@@ -69,21 +86,24 @@
 
         $(document).ready(function () {
             var eventEmitter = BJY.eventEmitter;
+            //創建組件
             eventEmitter
                 .on(
                     eventEmitter.VIEW_RENDER_TRIGGER,
                     function () {
-                        // 调用 whiteboard
+                        // 请求文档
+                        eventEmitter.trigger(eventEmitter.DOC_ALL_REQ);
+                        // 创建白板
                         var whiteBoard = BJY.Whiteboard.create({
                             element: $('#whiteboard .placeholder'),
                             //填充模式： 1 自适应  2 撑满容器
                             fit: 1
                         });
-
+                        // 创建画笔工具条
                         BJY.PainterToolBar.create({
                             element: $('#painter-tool .placeholder'),
                             replace: true,
-                            isVertical: false,
+                            isVertical: true,
                             canUseSelectTool: true,
                             canUsePencilTool: true,
                             canUseShapeTool: true,
@@ -94,6 +114,13 @@
                             canUseFilesTool: false,
                             canUseBagsTool: false
                         });
+                        // 创建文档列表组件
+                        BJY.Catalogue.create({
+                            element: $("#catalogue .placeholder"),
+                            thumbnailWidth: 100,
+                            classify: true,
+                            hasWhiteboard: true
+                        })
                     }
                 );
 
@@ -109,6 +136,7 @@
                 sign: 'ebf62e9b074a38021cfc566ff0ce8309',
                 webrtc: 1
             }
+
             //初始化房间
             BJY.init({
                 env: options.env,

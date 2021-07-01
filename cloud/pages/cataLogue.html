@@ -2,22 +2,46 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <title>cataLogue</title>
-    <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.css">
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/catalogue/Catalogue.css">
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/catalogue/Catalogue.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.css">
 
+    <style>
+        #whiteboard .placeholder{
+            position: absolute;
+            left: 0;
+            height: 100vh;
+        }
+
+        #catalogue {
+            width: 150px;
+            height: 100vh;
+            background-color: #F0F0F0;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
 </head>
 
 <body style="margin: 0;">
 
-    <div class="bjy-doc-list"></div>
+    <div id="whiteboard">
+        <div class="placeholder"></div>
+    </div>
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/catalogue/Catalogue.js"></script>
+    <div id="catalogue">
+        <div class="placeholder"></div>
+    </div>
+
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/catalogue/Catalogue.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/Canvas.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.js"></script>
 
     <script type="text/javascript">
         // store 存储着系统的权限信息
@@ -28,12 +52,12 @@
         var options = {
             prefixName: 'e70655665',
             env: 'production',
-            room_id: '20121171168042',
+            room_id: '20121042083339',
             user_number: '0',
             user_avatar: '',
-            user_name: '游客',
-            user_role: 0,
-            sign: '6aa2271c50980033318ecd038b5e6d12',
+            user_name: 'test',
+            user_role: 1,
+            sign: 'ebf62e9b074a38021cfc566ff0ce8309',
             webrtc: 1
         }
         //初始化房间
@@ -56,16 +80,26 @@
             sign: options.sign
         });
 
+        BJY.auth.canControlMirrorMode = function () {
+            return false;
+        }
+
         eventEmitter
             .one(
                 eventEmitter.VIEW_RENDER_TRIGGER,
                 function (event, data) {
                     // 请求文档
                     eventEmitter.trigger(eventEmitter.DOC_ALL_REQ);
+                    BJY.Whiteboard.create({
+                        element: $('#whiteboard .placeholder'),
+                        //填充模式： 1 自适应  2 撑满容器
+                        fit: 1
+                    });
                     // 创建文档列表组件
                     BJY.Catalogue.create({
-                        element: $(".bjy-doc-list"),
-                        thumbnailWidth: 100,
+                        element: $("#catalogue .placeholder"),
+                        thumbnailWidth: 130,
+                        classify: true,
                         hasWhiteboard: true
                     })
                 }
