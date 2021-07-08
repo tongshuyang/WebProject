@@ -2,27 +2,25 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <title>loading</title>
-    <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.css">
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/loading/live/Loading.css">
-
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/loading/live/Loading.css">
+    
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #loading {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
-
-<style type="text/css">
-    html,
-    body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-    }
-    #loading {
-        width: 100%;
-        height: 100%;
-    }
-</style>
 
 <body>
 
@@ -30,9 +28,9 @@
         <div class="placeholder"></div>
     </div>
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/loading/live/Loading.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/loading/live/Loading.js"></script>
 
     <script type="text/javascript">
         console.log("*   百家云官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/loading");
@@ -52,6 +50,7 @@
             sign: 'f608a83b5284802beda696b55f21116d',
             webrtc: 1
         };
+        
         //初始化房间
         BJY.init({
             env: options.env,
@@ -66,9 +65,6 @@
                 name: decodeURIComponent(options.user_name),
                 type: Number(options.user_role)
             },
-            teacher: {
-                type: 1
-            },
             sign: options.sign
         });
 
@@ -76,11 +72,11 @@
             // 占位元素
             element: $('#loading .placeholder'),
             // logo URL 可自定义自己的加载 logo
-            logoUrl: 'https://img.baijiayun.com/0baijiacloud/logo/ydzb/v5/www-loading.png'
+            logoUrl: '//img.baijiayun.com/0baijiacloud/logo/ydzb/v5/www-loading.png'
         });
 
         eventEmitter
-            // 监听 loading 开始加载事件， one() 函数表示事件只处理一次，若需要一直监听请使用 on() 函数
+            // 监听 loading 开始加载事件
             .one(
                 eventEmitter.LOADING_PANEL_START,
                 function (event, data) {
@@ -108,16 +104,7 @@
 
                     // 加载直播需要的各种组件，包括播放器，白板，用户列表等等
                 }
-            )
-            
-            .one(
-                eventEmitter.VIEW_RENDER_TRIGGER,
-                () => {
-                    // 注意，在VIEW_RENDER_TRIGGER事件触发后再去加载教室里面的组件
-
-                }
             );
-    </script>
     </script>
 </body>
 

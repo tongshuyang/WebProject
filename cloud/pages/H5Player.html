@@ -2,25 +2,22 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <title>H5Player</title>
-    <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.css">
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/theme/H5.css">
-
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/theme/H5.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.css">
 </head>
 
 <body style="margin: 0;">
-
     <div class="player"></div>
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/player.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/core/Player.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/extension/html.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/theme/H5.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/core/Player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/extension/html.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/theme/H5.js"></script>
 
     <script type="text/javascript">
         console.log("*   百家云官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/h5-player");
@@ -41,6 +38,7 @@
             sign: 'f608a83b5284802beda696b55f21116d',
             webrtc: 1
         };
+
         //初始化房间
         BJY.init({
             env: options.env,
@@ -55,19 +53,21 @@
                 name: decodeURIComponent(options.user_name),
                 type: Number(options.user_role)
             },
-            teacher: {
-                type: 1
-            },
             sign: options.sign
         }).then(function () {
             var teacherPlayer = BJY.H5Player.create({
                 element: $('.player'),
-                showControls: true,
+                showControls: false,
+                muted: true, // 是否静音播放 静音模式可以自动播放
                 poster: '',
                 customCoverImg: '' // 设置自定义背景图
             });
         });
-    </script>
+
+        // 在静音模式自动播放后，需要通过用户的点击交互来还原声音，调用下面的方法恢复音量
+        function unmuteVideo() {
+            teacherPlayer && teacherPlayer.player && teacherPlayer.player.unmuteVideo();
+        }
     </script>
 </body>
 

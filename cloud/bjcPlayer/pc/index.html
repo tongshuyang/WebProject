@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>点播pc网页端</title>
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
     <link href="https://live-cdn.baijiayun.com/www-video-jssdk/dep/videojs/0.0.6/dist/videojs.css" rel="stylesheet">
 </head>
 
@@ -37,20 +38,10 @@
         var player = new BjcPlayer($('#main').find('.video'), {
             token: '8R2nD0bEkOPEV4hhSJUmEMLtAewxMKNsEMIBabyg62x4Z_uQgNkR4g',
             vid: '70253936',
-            playbackRates: [0.7, 1, 1.2, 1.5, 2], // 倍速 传入 [] 隐藏倍速列表
+            showCurrentTimeDisplay: true,
+            showDurationDisplay: true,
+            playbackRates: [0.7, 1, 1.25, 1.5, 2], // 倍速 传入 [] 隐藏倍速列表
             privateDomainPrefix: 'e70655665', // 专属域名前缀 0.0.2版本开始支持
-            onerror: function () {
-                console.log('onplayerror event');
-            },
-            onended: function () {
-                console.log('onplayend event');
-            },
-            onplay: function () {
-                console.log('onplaybegin event');
-            },
-            onpause: function () {
-                console.log('onplaypause event');
-            },
             ontimeupdate: function (data) {
                 console.log('ontimeupdate event');
                 console.log('currentTime:' + data.currentTime);

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <title>whiteBoard</title>
     <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.css">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.css">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/toolBar/ToolBar.css">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.71.0/catalogue/Catalogue.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/whiteboard/Whiteboard.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/component/canvas/toolBar/ToolBar.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/catalogue/Catalogue.css">
 
     <style type="text/css">
         #painter-tool {
@@ -18,7 +18,7 @@
             top: 30vh;
         }
         #painter-tool .bjy-whiteboard-toolbar {
-            padding: 4px 15px;
+            padding: 4px 10px;
             border-radius: 4px;
         }
         #catalogue {
@@ -47,14 +47,14 @@
     </div>
 
     <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.js"></script>
     <!-- 白板 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/Canvas.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/whiteboard/Whiteboard.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/component/canvas/Canvas.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/whiteboard/Whiteboard.js"></script>
     <!-- 画笔工具 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/component/canvas/toolBar/ToolBar.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/component/canvas/toolBar/ToolBar.js"></script>
     <!-- 课件目录 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.71.0/catalogue/Catalogue.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/catalogue/Catalogue.js"></script>
     <script type="text/javascript">
         console.log("*   百家云官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/whiteboard");
 
@@ -62,6 +62,7 @@
         var pageData = BJY.data.page;
         var userRoleMap = {};
         var config = BJY.config;
+        var eventEmitter = BJY.eventEmitter;
 
         userRoleMap[config.ROLE_TYPE_TEACHER] = {
             en: 'teacher',
@@ -85,7 +86,6 @@
         }
 
         $(document).ready(function () {
-            var eventEmitter = BJY.eventEmitter;
             //創建組件
             eventEmitter
                 .on(
@@ -150,9 +150,6 @@
                     avatar: decodeURIComponent(options.user_avatar),
                     name: decodeURIComponent(options.user_name),
                     type: Number(options.user_role)
-                },
-                teacher: {
-                    type: 1
                 },
                 sign: options.sign
             });
