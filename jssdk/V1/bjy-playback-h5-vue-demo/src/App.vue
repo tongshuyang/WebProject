@@ -66,9 +66,9 @@ export default {
     created() {
         var options = {
             token:
-                "kgmfmLY6n-xhp9iW7Rdvm2O6jv5wAF3VXpYHZM7T6PnggeSJwEwbCqlEA8fOYEEEi9A9-FpqVnYKp0fXMnVKLQ",
-            classId: "20121042083339",
-            sessionId: "202104280",
+                "xGFWM6WCDJphp9iW7Rdvm-BZx8OQHhIY0m5dneqS510V7AQ6UXxNmsl6ZZVM6JkuySWadQyVBe0Kp0fXMnVKLQ",
+            classId: "21033077680543",
+            sessionId: "202103310",
             prefixName: 'e70655665'
         }
 

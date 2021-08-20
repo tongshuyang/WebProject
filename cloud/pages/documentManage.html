@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>课件管理</title>
+    <link rel='stylesheet' href='//live-cdn.baijiayun.com/js-sdk/1.70.2/document/DocumentManage.css'>
+    <style>
+    #bjy-document-manage {
+        width: 920px;
+        height: 460px;
+        padding: 15px;
+    }
+
+    </style>
+</head>
+<body>
+
+    <h2>
+        课件管理
+    </h2>
+    <div id="bjy-document-manage"></div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.70.2/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.70.2/document/DocumentManage.js"></script>
+
+    <script>
+        //教室参数
+        var options = {
+            prefixName: 'e70655665',
+            env: 'production',
+            room_id: '20121042083339',
+            user_number: '0',
+            user_avatar: '',
+            user_name: 'test',
+            user_role: 1,
+            sign: 'ebf62e9b074a38021cfc566ff0ce8309',
+            webrtc: 1
+        }
+
+        //初始化房间
+        BJY.init({
+            env: options.env,
+            privateDomainPrefix: options.prefixName,
+            class: {
+                id: options.room_id,
+                    webrtcType: options.webrtc
+            },
+            user: {
+                number: options.user_number,
+                avatar: decodeURIComponent(options.user_avatar),
+                name: decodeURIComponent(options.user_name),
+                type: Number(options.user_role)
+            },
+            sign: options.sign
+        });
+
+        BJY.eventEmitter
+        .on(
+            BJY.eventEmitter.VIEW_RENDER_TRIGGER,
+            function (argument) {
+                BJY.eventEmitter.emit(
+                    BJY.eventEmitter.DOC_ALL_REQ
+                );
+                BJY.eventEmitter
+                .on(
+                    BJY.eventEmitter.DOC_ALL_RES,
+                    function (argument) {
+                        BJY.store.set({
+                            'partner.enableLiveAnimationPpt': true
+                        });
+
+                        BJY.DocumentManage.create({
+                            element: $('#bjy-document-manage'),
+                            // skin: 'dark',
+                            supportAnimation: true,
+                            needIconButton: false,
+                            onFileUploadFail: function () {
+                                alert('上传失败');
+                            },
+                            onFileSizeError: function () {
+                                alert('上传文件太大');
+                            },
+                            onFileTypeError: function () {
+                                alert('文件类型错误');
+                            },
+                            onFileNameError: function () {
+                                alert('文件名错误');
+                            }
+                        });
+                    }
+                );
+            }
+        );
+
+    </script>
+</body>
+</html>
