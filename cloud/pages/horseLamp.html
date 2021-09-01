@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>horseLamp</title>
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.80.0/classroom/classroom.css">
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #main {
+            background-color: rgba(0,0,0,.3);
+            height: 400px;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+
+
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/horseLamp/HorseLamp.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var additionalStyle = ''
+                                + 'font-size: 18px;'
+                                + 'color: #fff;'
+                                + 'opacity: 0.5;';
+
+            var horseLamp = new BJY.HorseLamp({
+                container: $('#main'),
+                interval: 10,
+                trackCount: 8,
+                content: '百家云',
+                additionalStyle: additionalStyle,
+                speed: 20,
+                timeout: 30,
+                count: 1,
+                mode: 0,
+                top: 0,
+                bottom: 0
+            });
+
+            horseLamp.start();
+        })
+    </script>
+</body>
+
+</html>

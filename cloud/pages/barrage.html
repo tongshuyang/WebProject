@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>barrage</title>
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.80.0/classroom/classroom.css">
+    <style type="text/css">
+        * {
+            outline: none;
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #barrage {
+            background-color: rgba(0, 0, 0, .3);
+            height: 400px;
+            position: relative;
+        }
+
+        .form-inline {
+            padding: 10px;
+        }
+
+        .form-inline>label,
+        .form-inline>button {
+            margin-left: 5px;
+        }
+
+        .bjy-barrage {
+            background-color: rgba(255, 255, 255, .3);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .form-inline label {
+            display: inline-block;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            margin-bottom: 0px;
+        }
+
+        .btn-secondary {
+            color: rgb(41, 43, 44);
+            background-color: rgb(255, 255, 255);
+            border-color: rgb(204, 204, 204);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            font-size: 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.15);
+            border-image: initial;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: rgba(0, 0, 0, .2);
+        }
+
+        .badge-default {
+            background-color: rgb(99, 108, 114);
+        }
+
+        .badge-success {
+            background-color: rgb(92, 184, 92);
+        }
+
+        .badge-pill {
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            padding: 0.25em 0.4em;
+            border-radius: 0.25rem;
+        }
+
+        .form-control {
+            display: inline-block;
+            font-size: 18px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .btn:disabled {
+            background-color: #fff;
+            border-color: #ccc;
+            cursor: not-allowed;
+            opacity: .65;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-inline">
+        <input type="text" id="barrage-input" class="form-control">
+
+        <label>
+            当前状态：<small class="status badge badge-pill badge-default"></small>
+        </label>
+
+        <button id="btn-send" class="btn btn-secondary btn-sm" onclick="sendMessage()">
+            发送
+        </button>
+
+        <button id="btn-open" class="btn btn-secondary btn-sm" onclick="openBarrage()">
+            开启弹幕
+        </button>
+
+        <button id="btn-close" class="btn btn-secondary btn-sm" onclick="closeBarrage()">
+            关闭弹幕
+        </button>
+    </div>
+    <div id="barrage"></div>
+    
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/barrage/Barrage.js"></script>
+    <script>
+        var query = BJY.query;
+        var userRoleMap = {};
+        var config = BJY.config;
+        userRoleMap[config.ROLE_TYPE_TEACHER] = {
+            en: 'teacher',
+            cn: '老师'
+        };
+        userRoleMap[config.ROLE_TYPE_ASSISTANT] = {
+            en: 'assistant',
+            cn: '助教'
+        };
+        userRoleMap[config.ROLE_TYPE_STUDENT] = {
+            en: 'student',
+            cn: '学生'
+        };
+        userRoleMap[config.ROLE_TYPE_GUEST] = {
+            en: 'guest',
+            cn: '游客'
+        };
+
+        var barrage;
+        $(document).ready(function () {
+            var eventEmitter = BJY.eventEmitter;
+            eventEmitter.on(
+                eventEmitter.VIEW_RENDER_TRIGGER,
+                function () {
+                    barrage = new BJY.Barrage({
+                        container: $('#barrage'),
+                        // 移动速度，每秒移动多少个像素
+                        speed: 50,
+                        // 最长可显示多少个字，超过这个字数的会过滤
+                        maxLength: 20,
+                        // 在 top - bottom 的区间出现弹幕
+                        top: 30,
+                        bottom: 30,
+                        // 轨道高度
+                        trackHeight: 30,
+                        // 是否只显示文本消息
+                        textOnly: false,
+                        // 如果需要自定义弹幕内容，可实现此方法
+                        renderContent: function (data) {
+                            return '转换后的文字';
+                        }
+                    });
+                    openBarrage();
+                }
+            );
+
+            //教室参数
+            var options = {
+                prefixName: 'e70655665',
+                env: 'production',
+                room_id: '20121042083339',
+                user_number: '0',
+                user_avatar: 'https://oss-fist.litman.cn/img/favicon/favicon.png',
+                user_name: 'soyung',
+                user_role: 0,
+                sign: 'db5d6e993c5dc37b6b7d39b5db1791fe',
+                webrtc: 1
+            };
+            //初始化房间
+            BJY.init({
+                env: options.env,
+                privateDomainPrefix: options.prefixName,
+                class: {
+                    id: options.room_id,
+                        webrtcType: options.webrtc
+                },
+                user: {
+                    number: options.user_number,
+                    avatar: decodeURIComponent(options.user_avatar),
+                    name: decodeURIComponent(options.user_name),
+                    type: Number(options.user_role)
+                },
+                teacher: {
+                    type: 1
+                },
+                sign: options.sign
+            });
+        })
+        var sendMessage = function () {
+            barrage.send(
+                $('#barrage-input').val()
+            );
+        }
+        var openBarrage = function () {
+            barrage.open();
+            $('.status').html('开').addClass('badge-success');
+            $('#btn-open').attr('disabled', "true");
+            $('#btn-close').removeAttr("disabled");
+            $('#btn-send').removeAttr("disabled");
+        }
+
+        var closeBarrage = function () {
+            barrage.close();
+            $('.status').html('关').removeClass('badge-success');
+            $('#btn-close').attr('disabled', "true");
+            $('#btn-send').attr('disabled', "true");
+            $('#btn-open').removeAttr("disabled");
+        }
+    </script>
+</body>
+
+</html>
