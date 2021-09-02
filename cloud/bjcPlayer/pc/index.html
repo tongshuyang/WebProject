@@ -36,12 +36,21 @@
     <script>
         console.log("*   百家云官网文档地址：https://dev.baijiayun.com/wiki/detail/55#^h0-4");
         var player = new BjcPlayer($('#main').find('.video'), {
-            token: '8R2nD0bEkOPEV4hhSJUmEMLtAewxMKNsEMIBabyg62x4Z_uQgNkR4g',
-            vid: '70253936',
+            vid: '155776473',
+            token: 'UMHWX0J_ddfY6Vvukov6zyIRN6cB7Q9wjRTYpxRIDb4VI8MpVp66qg',
+            privateDomainPrefix: 'e70655665', // 专属域名前缀 0.0.2版本开始支持
+            user_name: 'soyung',
+            user_number: '1997',
+            customReportString: 'customerStr',
+            autoplay: true,
+            loop: true,
+            playbackRates: [0.7, 1, 1.25, 1.5, 2], // 倍速 传入 [] 隐藏倍速列表
+            disableSeek: 0,
+            hideProgress: 0,
+            showLogo: true,
+            showWatermark: true,
             showCurrentTimeDisplay: true,
             showDurationDisplay: true,
-            playbackRates: [0.7, 1, 1.25, 1.5, 2], // 倍速 传入 [] 隐藏倍速列表
-            privateDomainPrefix: 'e70655665', // 专属域名前缀 0.0.2版本开始支持
             ontimeupdate: function (data) {
                 console.log('ontimeupdate event');
                 console.log('currentTime:' + data.currentTime);
