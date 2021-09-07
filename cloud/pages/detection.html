@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <title>detection</title>
     <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.css">
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/page/detectionNew/Detection.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.80.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.80.0/page/detectionNew/Detection.css">
 
 </head>
 
@@ -15,16 +15,21 @@
 
     <div id="detection-box"></div>
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/player.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/core/Player.js"></script>
-    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.9/realtimecat.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/player/extension/webrtc/webrtc.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/player/core/Player.js"></script>
+
+    <!-- 如果是webrtc -->
+    <script src="//live-cdn.baijiayun.com/realtimecat/1.0.23/realtimecat.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/player/extension/webrtc/webrtc.js"></script>
+    <script src="//brtc.baijiayun.com/brtc-js-sdk/1.0.16/BRTC.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/dep/wea/webrtc-engine-adapter.js"></script>
+
     <script>
-        BJY.cdnOrigin = "https://live-cdn.baijiayun.com/js-sdk/1.65.0";
+        BJY.cdnOrigin = "//live-cdn.baijiayun.com/js-sdk/1.80.0";
     </script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/page/detectionNew/Detection.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.80.0/page/detectionNew/Detection.js"></script>
 
     <script type="text/javascript">
         console.log("*   百家云官网文档地址：官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/new-detect");
@@ -40,19 +45,20 @@
             env: 'production',
             room_id: '20121042083339',
             user_number: '0',
-            user_avatar: '',
-            user_name: '游客',
+            user_avatar: 'https://oss-fist.litman.cn/img/favicon/favicon.png',
+            user_name: 'soyung',
             user_role: 0,
-            sign: 'f608a83b5284802beda696b55f21116d',
+            sign: 'db5d6e993c5dc37b6b7d39b5db1791fe',
             webrtc: 1
         };
+
         //初始化房间
         BJY.init({
             env: options.env,
             privateDomainPrefix: options.prefixName,
             class: {
                 id: options.room_id,
-                    webrtcType: options.webrtc
+                webrtcType: options.webrtc
             },
             user: {
                 number: options.user_number,
@@ -64,7 +70,7 @@
                 type: 1
             },
             sign: options.sign
-        });
+        })
 
         eventEmitter
             .one(

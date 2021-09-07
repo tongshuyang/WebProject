@@ -35,6 +35,10 @@
 
     <script>
         console.log("*   百家云官网文档地址：https://dev.baijiayun.com/wiki/detail/55#^h0-4");
+        var storage = window.localStorage;
+        var memoryTime = {};
+        var first = true;
+        var playTime;
         var player = new BjcPlayer($('#main').find('.video'), {
             vid: '155776473',
             token: 'UMHWX0J_ddfY6Vvukov6zyIRN6cB7Q9wjRTYpxRIDb4VI8MpVp66qg',
@@ -51,9 +55,30 @@
             showWatermark: true,
             showCurrentTimeDisplay: true,
             showDurationDisplay: true,
+            onended: function () {
+                console.log('onplayend event');
+            },
+            onpause: function () {
+                console.log('onplaypause event');
+            },
+            onplay: function () {
+                // 播放时尝试读取缓存时间
+                var memoryPlay = JSON.parse(storage.getItem('memoryPlay'));
+                playTime = memoryPlay[player.options.vid] ? memoryPlay[player.options.vid] : 0;
+                console.log('onplaybegin event');
+            },
             ontimeupdate: function (data) {
-                console.log('ontimeupdate event');
-                console.log('currentTime:' + data.currentTime);
+                //记忆播放，非首次播放seek到缓存时间
+                if (first) {
+                    player.seek(playTime);
+                    first = false;
+                }
+                //更新时保存当前时间点
+                memoryTime[data.target.dataset.vid] = data.currentTime;
+                storage.setItem(
+                    'memoryPlay',
+                    JSON.stringify(memoryTime)
+                );
             },
             onseeked: function (data) {
                 console.log('onseek event');

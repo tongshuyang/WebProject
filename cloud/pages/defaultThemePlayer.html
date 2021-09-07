@@ -7,11 +7,11 @@
 
     <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
     <!-- 使用任何组件都应该引入此基本样式文件 -->
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.81.1/classroom/classroom.css">
     <!-- 音视频菜单按钮功能 -->
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/setting/menu/menu.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.81.1/setting/menu/menu.css">
     <!-- 默认播放器样式 -->
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/theme/Default.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.81.1/player/theme/Default.css">
 
     <style>
         html,
@@ -41,51 +41,58 @@
         }
     </style>
 </head>
-
 <body>
-    <div id="live-self-player"></div>
 
-    <div id="menu-camera" class="menu"></div>
+    <div id="live-self-player">
 
-    <div id="menu-mic" class="menu"></div>
+    </div>
 
-    <div id="live-teacher-player"></div>
+    <div id="menu-camera" class="menu">
 
-    <!-- 本 SDK 需要使用 JQuery 库，因此在使用之前首先引入 JQuery 文件 -->
+    </div>
+
+    <div id="menu-mic" class="menu">
+
+    </div>
+
+    <div id="live-teacher-player">
+
+    </div>
+
+  <!-- 本 SDK 需要使用 JQuery 库，因此在使用之前首先引入 JQuery 文件 -->
     <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 
     <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/classroom/classroom.js"></script>
 
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/user/userStatus.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/user/userStatus.js"></script>
 
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/player.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/core/Player.js"></script>
+    <!-- 播放器 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/player/core/Player.js"></script>
 
     <!-- webrtc 不需要上麦仅需要拉主讲/老师视频流 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/extension/html.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/player/extension/html.js"></script>
 
     <!-- webrtc 需要上麦拉纯webrtc流 -->
-    <script src="//live-cdn.baijiayun.com/realtimecat/1.0.19/realtimecat.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/extension/webrtc/webrtc.js"></script>
+    <script src="//live-cdn.baijiayun.com/realtimecat/1.0.23/realtimecat.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/player/extension/webrtc/webrtc.js"></script>
+
     
+    <!-- BRTC底层SDK -->
+    <script src="//brtc.baijiayun.com/brtc-js-sdk/1.0.16/BRTC.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/dep/wea/webrtc-engine-adapter.js"></script>
+
+
     <!-- 默认播放器组件 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/player/theme/Default.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/player/theme/Default.js"></script>
 
     <!-- 音视频菜单按钮功能 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/user/userPublish.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/setting/menu/menu.js"></script>
-
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/user/userPublish.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/setting/menu/menu.js"></script>
 
     <script type="text/javascript">
         console.log("*   百家云官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/default-player");
-
-        // store 存储着系统的权限信息
-        var auth = BJY.auth;
-        var store = BJY.store;
-        var eventEmitter = BJY.eventEmitter;
-        var extension = BJY.auth.isWebRTCMixUser() ? BJY.Player.html : BJY.Player.webrtc;
-        var myPlayer;
 
         //教室参数
         var options = {
@@ -93,19 +100,20 @@
             env: 'production',
             room_id: '20121042083339',
             user_number: '0',
-            user_avatar: '',
-            user_name: '游客',
+            user_avatar: 'https://oss-fist.litman.cn/img/favicon/favicon.png',
+            user_name: 'soyung',
             user_role: 0,
-            sign: 'f608a83b5284802beda696b55f21116d',
+            sign: 'db5d6e993c5dc37b6b7d39b5db1791fe',
             webrtc: 1
         };
+
         //初始化房间
         BJY.init({
             env: options.env,
             privateDomainPrefix: options.prefixName,
             class: {
                 id: options.room_id,
-                    webrtcType: options.webrtc
+                webrtcType: options.webrtc
             },
             user: {
                 number: options.user_number,
@@ -113,93 +121,81 @@
                 name: decodeURIComponent(options.user_name),
                 type: Number(options.user_role)
             },
+            teacher: {
+                type: 1
+            },
             sign: options.sign
         });
 
-        eventEmitter
-            .one(
-                eventEmitter.CLASSROOM_CONNECT_TRIGGER,
-                function (event, data) {
-                    // 初始化扩展
-                    extension.init().then(function () {
-                        eventEmitter.trigger(
-                            eventEmitter.CLASSROOM_CONNECT_TRIGGER,
-                            data
-                        );
-                    });
-                    return false;
-                }
-            )
-            .one(
-                eventEmitter.VIEW_RENDER_TRIGGER,
-                function (event, data) {
-                    // 创建自己的播放器 （需要结合菜单按钮组件使用）
-                    myPlayer = BJY.DefaultThemePlayer.create({
-                        element: $('#live-self-player'),
-                        user: store.get('user'),
-                        extension: extension,
-                        canFold: true,
-                        canSwitchCamera: true,
-                        canSwitchMic: true
-                    });
-                    myPlayer.watch('isFolded', function (isFolded) {
-                        if (isFolded) {
-                            //执行折叠
-                        } else {
-                            // 执行展开
-                        }
-                    });
-                    // 不上麦的情况 创建老师的播放器
-                    teacherPlayer = BJY.DefaultThemePlayer.create({
-                        element: $('#live-teacher-player'),
-                        user: store.get('webrtcMixUser'),
-                        extension: extension,
-                        isWebrtcMix: true,
-                        canSwitchCamera: false,
-                        canSwitchMic: false
-                    });
+        var store = BJY.store;
+        var eventEmitter = BJY.eventEmitter;
+        var extension = BJY.Player.webrtc;
+        var myPlayer;
 
-                    // 上麦的情况 创建老师的播放器
-                    teacherPlayer = BJY.DefaultThemePlayer.create({
-                        element: $('#live-teacher-player'),
-                        user: store.get('presenter'),
-                        extension: extension,
-                        isWebrtcMix: false,
-                        canSwitchCamera: false,
-                        canSwitchMic: false
-                    });
+        eventEmitter.one(
+            eventEmitter.VIEW_RENDER_TRIGGER,
+            function (event, data) {
+                extension.init();
+                myPlayer = BJY.DefaultThemePlayer.create({
+                    element: $('#live-self-player'),
+                    user: store.get('user'),
+                    extension: extension,
+                    canFold: false,
+                    canSwitchCamera: true,
+                    canSwitchMic: true
+                });
 
-                    // 创建麦克风菜单按钮
-                    var micMenu = BJY.MicMenu.create({
-                        element: $('#menu-mic'),
-                        canSelectDevice: true,
-                        canAdjustVolume: true,
-                        maxVolume: 100,
-                        onSwitcherClick: function () {
-                            var player = myPlayer.player;
-                            BJY.userPublish.setDevice(player, null, !player.audioOn);
-                        }
+                BJY.Player.html.init();
 
-                    });
-                    // 创建摄像头菜单按钮
-                    var cameraMenu = BJY.CameraMenu.create({
-                        element: $('#menu-camera'),
-                        canSelectDevice: true,
-                        onSwitcherClick: function () {
-                            var player = myPlayer.player;
-                            BJY.userPublish.setDevice(player, !player.videoOn);
-                        }
-                    });
-                }
-            )
-            .on(
-                eventEmitter.MEDIA_SWITCH_TRIGGER,
-                function (event, data) {
-                    var player = myPlayer.player;
-                    BJY.userPublish.setDevice(player, data.videoOn, data.audioOn);
-                }
-            );
+                teacherPlayer = BJY.DefaultThemePlayer.create({
+                    element: $('#live-teacher-player'),
+                    user: store.get('webrtcMixUser') || store.get('presenter'),
+                    extension: BJY.Player.html,
+                    isWebrtcMix: true,
+                    canSwitchCamera: true,
+                    canSwitchMic: true
+                });
+
+                var micMenu = BJY.MicMenu.create({
+                    element: $('#menu-mic'),
+                    canSelectDevice: true,
+                    canAdjustVolume: true,
+                    maxVolume: 100
+                });
+
+                var cameraMenu = BJY.CameraMenu.create({
+                    element: $('#menu-camera'),
+                    canSelectDevice: true
+                });
+            }
+        )
+        .on(
+            eventEmitter.TEACHER_ADD,
+            function () {
+            }
+        )
+        .on(
+            eventEmitter.MEDIA_SWITCH_TRIGGER,
+            function (event, data) {
+                var player = myPlayer.player;
+                BJY.userPublish.setDevice(player, data.videoOn, data.audioOn);
+            }
+        )
+        .on(
+            eventEmitter.CAMERA_MENU_CLICK,
+            function () {
+                var player = myPlayer.player;
+                BJY.userPublish.setDevice(player, !player.videoOn);
+            }
+        )
+        .on(
+            eventEmitter.MIC_MENU_CLICK,
+            function () {
+                var player = myPlayer.player;
+                BJY.userPublish.setDevice(player, null, !player.audioOn);
+            }
+        );
+
     </script>
 </body>
-
 </html>

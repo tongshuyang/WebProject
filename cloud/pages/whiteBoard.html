@@ -5,22 +5,25 @@
     <meta charset="UTF-8">
     <title>whiteBoard</title>
     <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.css">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/whiteboard/Whiteboard.css">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/component/canvas/toolBar/ToolBar.css">
-    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.73.0/catalogue/Catalogue.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.81.1/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.81.1/whiteboard/Whiteboard.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.81.1/component/canvas/toolBar/ToolBar.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.81.1/catalogue/Catalogue.css">
+    <link rel='stylesheet' href='//live-cdn.baijiayun.com/js-sdk/1.70.2/document/DocumentManage.css'>
 
     <style type="text/css">
         #painter-tool {
             position: absolute;
             box-shadow: 1px 2px 5px rgba(0, 0, 0, .3);
-            right: 50px;
+            right: 40px;
             top: 30vh;
         }
+
         #painter-tool .bjy-whiteboard-toolbar {
             padding: 4px 10px;
             border-radius: 4px;
         }
+
         #catalogue {
             width: 120px;
             height: 100vh;
@@ -29,10 +32,15 @@
             top: 0;
             left: 0;
         }
+        #bjy-document-manage {
+        width: 920px;
+        height: 460px;
+        padding: 15px;
+    }
     </style>
 </head>
 
-<body style="margin: 0;">
+<body style="margin: 0; background-color: cadetblue;">
 
     <div id="whiteboard" style="height: 100vh;">
         <div class="placeholder"></div>
@@ -46,15 +54,19 @@
         <div class="placeholder"></div>
     </div>
 
+    <div id="bjy-document-manage"></div>
+
     <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/classroom/classroom.js"></script>
     <!-- 白板 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/component/canvas/Canvas.js"></script>
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/whiteboard/Whiteboard.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/component/canvas/Canvas.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/whiteboard/Whiteboard.js"></script>
     <!-- 画笔工具 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/component/canvas/toolBar/ToolBar.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/component/canvas/toolBar/ToolBar.js"></script>
     <!-- 课件目录 -->
-    <script src="//live-cdn.baijiayun.com/js-sdk/1.73.0/catalogue/Catalogue.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/catalogue/Catalogue.js"></script>
+    <!-- 课件管理 -->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.70.2/document/DocumentManage.js"></script>
     <script type="text/javascript">
         console.log("*   百家云官网文档地址：https://www.baijiayun.com/js-sdk/doc/#/whiteboard");
 
@@ -90,7 +102,7 @@
             eventEmitter
                 .on(
                     eventEmitter.VIEW_RENDER_TRIGGER,
-                    function () {
+                    function (argument) {
                         // 请求文档
                         eventEmitter.trigger(eventEmitter.DOC_ALL_REQ);
                         // 创建白板
@@ -120,7 +132,38 @@
                             thumbnailWidth: 100,
                             classify: true,
                             hasWhiteboard: true
-                        })
+                        });
+                        //创建课件管理组件
+                        BJY.eventEmitter.emit(
+                            eventEmitter.DOC_ALL_REQ
+                        );
+                        BJY.eventEmitter.on(
+                            eventEmitter.DOC_ALL_RES,
+                            function (argument) {
+                                BJY.store.set({
+                                    'partner.enableLiveAnimationPpt': true
+                                });
+
+                                BJY.DocumentManage.create({
+                                    element: $('#bjy-document-manage'),
+                                    // skin: 'dark',
+                                    supportAnimation: true,
+                                    needIconButton: false,
+                                    onFileUploadFail: function () {
+                                        alert('上传失败');
+                                    },
+                                    onFileSizeError: function () {
+                                        alert('上传文件太大');
+                                    },
+                                    onFileTypeError: function () {
+                                        alert('文件类型错误');
+                                    },
+                                    onFileNameError: function () {
+                                        alert('文件名错误');
+                                    }
+                                });
+                            }
+                        );
                     }
                 );
 
