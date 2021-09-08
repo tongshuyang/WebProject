@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>h5PureWebrtc</title>
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.82.0/classroom/classroom.css" />
+    <style>
+        .mask-wrapper {
+            z-index: 1;
+            position: fixed;
+            background: #ffffff;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #presenter-player {
+            width: 100vw;
+            height: 56.25vw;
+        }
+
+        #active-list {
+            width: 100%;
+            height: 17.25vw;
+            overflow: auto;
+        }
+
+        #active-list>div {
+            display: inline-block;
+            width: 23vw;
+            height: 17.25vw;
+            border-radius: 4px;
+        }
+
+        #self-player {
+            width: 100vw;
+            height: 56.25vw;
+            position: fixed;
+            bottom: 0;
+        }
+
+        #operate-list {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            position: fixed;
+            bottom: 57vw;
+            width: 100%;
+        }
+
+        #self-player[data-video-on='false'][data-audio-on='false'] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 老师播放器 -->
+        <div id="presenter-player"></div>
+        <!-- 发言列表 -->
+        <div id="active-list">
+            <div :data-name="item.name" :data-video-on="item.videoOn" :data-audio-on="item.audioOn"
+                v-for="(item, index) in activeUser" :key="index" :id="`user-${index}`"></div>
+        </div>
+        <!-- 自己的播放器以及操作 -->
+        <div id="self-player"></div>
+        <div id="operate-list">
+            <div @click="toggleCamera">开关视频</div>
+            <div @click="toggleMic">开关麦克风</div>
+            <div @click="speakApply">举手</div>
+            <div @click="stopSpeak">结束发言</div>
+        </div>
+        <div class="mask-wrapper" v-if="showModal || !isInit" @click="showModal = false">
+            播放视频需要对页面有点击交互<br>请点击页面后进入
+        </div>
+    </div>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/realtimecat/1.0.23/realtimecat.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/dep/wea/webrtc-engine-adapter.js"></script>
+    <script src="//pro-live-cdn.baijiayun.com/web/dep/trtc/4.4.3/trtc.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/user/userPublish.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/user/userSpeak.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/player/core/Player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/player/extension/webrtc/webrtc.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        let auth = BJY.auth
+        let store = BJY.store
+        let config = BJY.config
+        let userData = BJY.data.user
+        let userSpeak = BJY.userSpeak
+        let userPublish = BJY.userPublish
+        let eventEmitter = BJY.eventEmitter
+        let app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    presenter: null,
+                    // 主讲播放器
+                    presenterPlayer: null,
+                    showModal: true,
+                    // 发言用户数组
+                    activeUser: [],
+                    // 发言用户播放器数组
+                    playerInstance: [],
+                    isInit: false,
+                    self: null,
+                    // 当前用户自己的播放器
+                    selfPlayer: null,
+                    // 自己的音视频状态
+                    audioOn: false,
+                    videoOn: false,
+                    // 是否可以开关音视频，需要举手后进行
+                    canSpeak: false
+                }
+            },
+            watch: {
+                presenter(val, oldVal) {
+                    if (val) {
+                        this.presenterPlayer && this.presenterPlayer.destroy()
+                        this.presenterPlayer = new BJY.Player({
+                            element: $('#presenter-player'),
+                            user: val,
+                            extension: BJY.Player.webrtc,
+                            isWebRTCMix: false,
+                            replace: false
+                        })
+                    } else if (presenterPlayer) {
+                        this.presenterPlayer.destroy()
+                    }
+                },
+                isReady(val) {
+                    let me = this
+                    if (val) {
+                        store.watch(
+                            'presenter',
+                            function (val) {
+                                me.presenter = val
+                            },
+                            true
+                        )
+                        // 初始化后获取上麦用户
+                        Yox.array.each(userData.active(), function (user) {
+                            if (user.audioOn || user.videoOn) {
+                                me.addUser(user)
+                            }
+                        })
+                        // 获取使用辅助摄像头、文件播放、屏幕共享的用户
+                        Yox.array.each(
+                            [
+                                config.MEDIA_TYPE_ASSIST_CAMERA,
+                                config.MEDIA_TYPE_FILE,
+                                config.MEDIA_TYPE_MAIN_SCREEN_SHARE,
+                                config.MEDIA_TYPE_ASSIST_SCREEN_SHARE
+                            ],
+                            function (type, index) {
+                                Yox.array.each(userData.activeAssist(type), function (user) {
+                                    var media = user.mediaExtMap && user.mediaExtMap[type]
+                                    if (media && (media.audioOn || media.videoOn)) {
+                                        me.addUser(user)
+                                    }
+                                })
+                            }
+                        )
+                        eventEmitter
+                            .on(eventEmitter.USER_ADD, function (event, data) {
+                                $.each(data.userList, function (index, item) {
+                                    if (item.videoOn || item.audioOn) {
+                                        me.addUser(item)
+                                    }
+                                })
+                            })
+                            .on(eventEmitter.USER_ACTIVE_ADD, function (event, data) {
+                                me.addUser(data.user)
+                            })
+                            .on(eventEmitter.USER_ACTIVE_REMOVE, function (event, data) {
+                                var user = data.user
+                                if (user) {
+                                    if (user.id && !userData.isAssistActive(user.id)) {
+                                        me.deleteUser(data.user)
+                                    }
+                                }
+                            })
+                            .on(eventEmitter.USER_REMOVE, function (event, data) {
+                                me.deleteUser(data.user)
+                            })
+                    }
+                }
+            },
+            computed: {
+                isReady() {
+                    return this.isInit && !this.showModal
+                }
+            },
+            methods: {
+                addUser(user) {
+                    if (auth.isPresenter(user.id) || auth.isTeacher(user.type) || auth.isSelf(user.id)) {
+                        return
+                    }
+                    let me = this
+                    let index = this.activeUser.length
+                    this.activeUser.push(user)
+                    Yox.nextTick(() => {
+                        me.playerInstance[index] = new BJY.Player({
+                            element: $(`#user-${index}`),
+                            user: user,
+                            extension: BJY.Player.webrtc,
+                            isWebRTCMix: false,
+                            replace: false
+                        })
+                    })
+                },
+                getIndexById(userId) {
+                    let list = this.activeUser
+                    let index = -1
+                    $.each(list, (idx, item) => {
+                        if (item.id === userId) {
+                            index = idx
+                            return false
+                        }
+                    })
+                    return index
+                },
+                deleteUser(user) {
+                    let index = this.getIndexById(user.id)
+                    if (auth.isSelf(user) || index < 0) {
+                        return
+                    }
+                    this.activeUser.splice(index, 1)
+                    this.playerInstance[index] && this.playerInstance[index].destroy()
+                },
+                speakApply() {
+                    let timeout = 10000
+                    // 发起举手 10s 后未同意算举手超时
+                    userSpeak.startApply(timeout)
+                },
+                toggleCamera() {
+                    if (this.canSpeak && store.get('class.started')) {
+                        eventEmitter.trigger(eventEmitter.MEDIA_SWITCH_TRIGGER, {
+                            videoOn: !store.get('user.videoOn')
+                        })
+                        userPublish.setDevice(
+                            this.selfPlayer,
+                            !store.get('user.videoOn'),
+                            store.get('user.audioOn')
+                        )
+                    } else {
+                        alert('请先举手')
+                    }
+                },
+                toggleMic() {
+                    if (this.canSpeak && store.get('class.started')) {
+                        eventEmitter.trigger(eventEmitter.MEDIA_SWITCH_TRIGGER, {
+                            audioOn: !store.get('user.audioOn')
+                        })
+                        userPublish.setDevice(
+                            this.selfPlayer,
+                            store.get('user.videoOn'),
+                            !store.get('user.audioOn')
+                        )
+                    } else {
+                        alert('请先举手')
+                    }
+                },
+                stopSpeak() {
+                    userSpeak.stopSpeak(this.self.id)
+                }
+            },
+            mounted() {
+                let me = this
+                BJY.init({
+                    env: '',
+                    privateDomainPrefix: 'e45832483',
+                    sign: '15745144a28979fbc734812f7147f7df',
+                    class: {
+                        id: '21090875802703'
+                    },
+                    user: {
+                        name: '游客',
+                        number: '0',
+                        type: 0,
+                        avatar: ''
+                    }
+                })
+                eventEmitter
+                    .on(eventEmitter.CLASSROOM_CONNECT_SUCCESS, (event, data) => {
+                        BJY.Player.webrtc.init()
+                        me.isInit = true
+                        me.self = store.get('user')
+                        // 创建自己的播放器
+                        me.selfPlayer = new BJY.Player({
+                            element: $('#self-player'),
+                            user: store.get('user'),
+                            extension: BJY.Player.webrtc,
+                            isWebRTCMix: false,
+                            replace: false
+                        })
+                        BJY.data.media.getCameraConfig = function (quality, ratio, isAssist) {
+                            return {
+                                cameraWidth: 240,
+                                cameraHeight: 320,
+                                cameraFps: 10,
+                                cameraBandwidth: 150,
+                                cameraKeyframeInterval: 30,
+                                cameraCrop: false,
+                                cameraHorizontalFlip: false,
+                                cameraVerticalFlip: false
+                            }
+                        }
+                        store.watch(
+                            'user',
+                            function (val) {
+                                me.videoOn = me.videoOn
+                                me.audioOn = me.audioOn
+                            },
+                            true
+                        )
+                    })
+                    .on(eventEmitter.SPEAK_APPLY_RESULT_TIMEOUT, function () {
+                        console.log('举手超时')
+                    })
+                    .on(eventEmitter.SPEAK_APPLY_RESULT_ACCEPT, function () {
+                        console.log('老师已同意举手')
+                        me.canSpeak = true
+
+                        userPublish.setDevice(
+                            me.selfPlayer,
+                            true,
+                            true
+                        )
+                    })
+                    .on(eventEmitter.SPEAK_APPLY_RESULT_REJECT, function () {
+                        console.log('老师拒绝你的举手申请')
+                    })
+                    .on(eventEmitter.MEDIA_SWITCH_TRIGGER, function (event, data) {
+                        // 音视频全关
+                        if (!data.videoOn && !data.audioOn) {
+                            var operator = data.operator
+                            if (operator) {
+                                console.log('你被' + operator.name + '终止发言')
+                            }
+                            me.canSpeak = false
+                            me.selfPlayer && me.selfPlayer.publishAVClose()
+                        }
+                    })
+            }
+        })
+    </script>
+</body>
+
+</html>
