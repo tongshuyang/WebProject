@@ -4,16 +4,54 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>model</title>
+    <title>setting</title>
     <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.82.0/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.82.0/page/setting/Setting.css">
+
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background-color: #3D3D3E;
+        }
+        .setting-placeholder {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+        }
+        .bjy-device-settings-navs .bjy-item.active{
+            background: rgba(159, 168, 181, 0.2);
+        }
+    </style>
 
 </head>
 
 <body style="margin: 0;">
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://live-cdn.baijiayun.com/js-sdk/1.65.0/classroom/classroom.js"></script>
+    <div id="setting-modal">
+        <div class="setting-placeholder"></div>
+    </div>
+
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/classroom/classroom.js"></script>
+    <!-- 如果你需要使用webrtc拓展，你需要先引入这个依赖 -->
+    <script src="//live-cdn.baijiayun.com/realtimecat/1.0.23/realtimecat.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/player/player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/player/core/Player.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/player/extension/webrtc/webrtc.js"></script>
+    <!-- BRTC底层SDK -->
+    <script src="//brtc.baijiayun.com/brtc-js-sdk/1.0.16/BRTC.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/dep/wea/webrtc-engine-adapter.js"></script>
+    <!-- 设置面板js-->
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/setting/setting.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.82.0/page/setting/Setting.js"></script>
 
     <script type="text/javascript">
         // store 存储着系统的权限信息
@@ -38,7 +76,7 @@
             privateDomainPrefix: options.prefixName,
             class: {
                 id: options.room_id,
-                webrtcType: options.webrtc
+                    webrtcType: options.webrtc
             },
             user: {
                 number: options.user_number,
@@ -56,7 +94,20 @@
             .one(
                 eventEmitter.VIEW_RENDER_TRIGGER,
                 () => {
-                    // 注意，在VIEW_RENDER_TRIGGER事件触发后再去加载教室里面的组件
+                    BJY.Player.webrtc.init();
+                    BJY.Setting.create({
+                        element: $('#setting-modal .setting-placeholder'), //外层容器
+                        replace: false,
+                        showCloseButton: false,
+                        hasCloudReocrd: false, // 需要配置录制组件使用
+                        hasCameraTab: true, // 摄像头设置
+                        hasMicTab: true, //麦克风设置
+                        hasSpeakerTab: true, //扬声器设置
+                        hasRecordTab: false, //录制
+                        onCloseButtonClick: function () {
+                            //处理关闭回调
+                        }
+                    });
 
                 }
             );

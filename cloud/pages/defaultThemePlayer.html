@@ -64,6 +64,7 @@
 
     <!-- 不管你用到这个页面里的任何组件，都需要先引入以下文件 -->
     <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/message/messageSender/MessageSender.js"></script>
 
     <script src="//live-cdn.baijiayun.com/js-sdk/1.81.1/user/userStatus.js"></script>
 
@@ -146,12 +147,11 @@
                 });
 
                 BJY.Player.html.init();
-
                 teacherPlayer = BJY.DefaultThemePlayer.create({
                     element: $('#live-teacher-player'),
-                    user: store.get('webrtcMixUser') || store.get('presenter'),
+                    user: BJY.auth.isWebRTC() ? (store.get('webrtcMixUser')) : store.get('presenter') || store.get('teacher'),
                     extension: BJY.Player.html,
-                    isWebrtcMix: true,
+                    isWebRTCMix: true,
                     canSwitchCamera: true,
                     canSwitchMic: true
                 });
