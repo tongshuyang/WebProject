@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
+
+    <title>BPlayer Demo</title>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script src="https://live-cdn.baijiayun.com/bplayer/1.1.5/bplayer.js"></script>
+    <script src="https://live-cdn.baijiayun.com/bplayer/1.1.5/dep/ffplayer.js"></script>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            background-color: #000;
+        }
+
+        @media (max-width: 640px) {
+            #demo-wrap {
+                height: unset;
+            }
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #demo-wrap {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo-video"></div>
+    <script>
+        var bplayer = new BPlayer({
+            container: document.getElementById('demo-video'),
+            autoplay: true,
+            poster: '',
+            volume: 0.75,
+            preload: 'meta',
+            memory: true,
+            airplay: true,
+            rateList: [0.5, 0.75, 1, 1.25, 1.5, 2],
+            // 主题色，正确的颜色变量
+            theme: '#1795ff',
+            // logo {url:link}
+            logo: {
+                url: '//img.baijiayun.com/0baijiatools/ce22cfe3039dcf05322d97de03d822b8/logo.png',
+            },
+            plugins: {
+                // 字幕
+                subtitle: {
+                    // source of subtitle
+                    url: '',
+                    // color
+                    color: '#fff',
+                    // font-size
+                    fontSize: 18, // or '18px'
+                    // bottom: distance to bottom
+                    bottom: 64, // or 36
+                },
+                // 跑马灯
+                marquee: {
+                    rollDuration: 10,
+                    blinkDuration: 10,
+                    type: 1,
+                    displayMode: 'roll',
+                    count: 2,
+                    fontOpacity: 1,
+                    backgroundOpacity: 1,
+                    position: 'random',
+                    color: '#fff',
+                    fontSize: 20, // or '20px'
+                    value: '正在观看百家云点播视频',
+                },
+                // 水印
+                waterMark: {
+                    url: 'https://live-cdn.baijiayun.com/homepage/asset/frontend/common/img/logo-blue_3dd169c315.png',
+                    width: 120, // or '120px'
+                    height: 40, // or '40px'
+                    opacity: 0.8,
+                    // top-left || top-right || bottom-left || bottom-right
+                    position: 'top-left',
+                },
+            },
+            vid: '156406197',
+            token: 'Nrpg-IJI8F4GQwwX1C0eIoxVDciDCSUgFw9Eke32Fe2C_KexWHYSaTG5JtrxIFp-',
+            env: '',
+            user: {
+                name: 'test-demo',
+                number: '123',
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScreenShare</title>
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.37.2/classroom/classroom.css">
+    <link rel="stylesheet" href="//live-cdn.baijiayun.com/js-sdk/1.37.2/setting/menu/menu.css">
+    <style>
+        #screen-share {
+            width: 100px;
+            position: absolute;
+            top: 100px;
+            left: 50px;
+            background: #000;
+            border-radius: 10px;
+            color: #fff;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="screen-share">
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.83.0/classroom/classroom.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.37.2/cef/cef.js"></script>
+
+    <script src="https://live-cdn.baijiayun.com/realtimecat/1.0.19/realtimecat.js"></script>
+    <script src="https://live-cdn.baijiayun.com/js-sdk/1.83.0/screenShareExtension/webrtc.js"></script>
+
+    <script src="//brtc.baijiayun.com/brtc-js-sdk/1.0.16/BRTC.js"></script>
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.83.0/dep/wea/webrtc-engine-adapter.js"></script>
+    
+    <script src="//live-cdn.baijiayun.com/js-sdk/1.37.2/setting/menu/menu.js"></script>
+
+    <script>
+
+        window.DEBUG = true;
+
+        //教室参数
+        var options = {
+            prefixName: 'e70655665',
+            env: 'production',
+            room_id: '20121042083339',
+            user_number: '0',
+            user_avatar: '',
+            user_name: '游客',
+            user_role: 0,
+            sign: 'f608a83b5284802beda696b55f21116d',
+            webrtc: 1
+        };
+        //初始化房间
+        BJY.init({
+            env: options.env,
+            privateDomainPrefix: options.prefixName,
+            class: {
+                id: options.room_id,
+                    webrtcType: options.webrtc
+            },
+            user: {
+                number: options.user_number,
+                avatar: decodeURIComponent(options.user_avatar),
+                name: decodeURIComponent(options.user_name),
+                type: Number(options.user_role)
+            },
+            teacher: {
+                type: 1
+            },
+            sign: options.sign
+        });
+
+        var eventEmitter = BJY.eventEmitter;
+
+        eventEmitter
+        .one(
+            eventEmitter.VIEW_RENDER_TRIGGER,
+            function (event, data) {
+                var screenShare = BJY.ScreenShareMenu.create({
+                    // 按钮容器
+                    element: $('#screen-share'),
+                    // 点击全屏分享回调
+                    onFullScreenClick: function (mode) {
+                        if (checkCondition()) {
+                            triggerStart(mode);
+                        }
+                    },
+                    // 点击区域分享回调
+                    onPartClick: function (mode) {
+                        if (checkCondition()) {
+                            triggerStart(mode);
+                        }
+                    },
+                    // 点击程序分享回调
+                    onProgramClick: function (mode, list) {
+                        if (checkCondition()) {
+                            // list 数组是组件返回的可用于分享的程序数组，提供给用户选择需要分享哪一个程序
+
+                            // 分享选择的程序
+                            eventEmitter.trigger(
+                                eventEmitter.SCREEN_SHARE_START_TRIGGER,
+                                {
+                                    mode: mode,
+                                    program: list[index].name
+                                }
+                            );
+                        }
+                    },
+                    // 点击停止分享回调
+                    onStopClick: function () {
+                        eventEmitter.trigger(
+                            eventEmitter.SCREEN_SHARE_STOP_TRIGGER
+                        );
+                    }
+                });
+            }
+        );
+
+
+    </script>
+</body>
+</html>

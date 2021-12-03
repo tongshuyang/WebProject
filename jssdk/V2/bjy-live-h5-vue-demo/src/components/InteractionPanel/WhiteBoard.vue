@@ -38,6 +38,10 @@ export default {
       } else {
         return dom.msRequestFullscreen();
       }
+      if (BJY.os.ios) {
+        document.querySelector('#whiteboard').style.position = 'fixed'
+        this.whiteboard.refresh()
+      }
     },
     exitFullScreen() {
       var dom = document;
@@ -49,6 +53,10 @@ export default {
         return dom.mozExitFullscreen();
       } else {
         return dom.msExitFullscreen();
+      }
+      if (BJY.os.ios) {
+        document.querySelector('#whiteboard').style.position = 'absolute'
+        this.whiteboard.refresh()
       }
     },
   },
