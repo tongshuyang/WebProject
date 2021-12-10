@@ -40,22 +40,22 @@
         var first = true;
         var playTime;
         var player = new BjcPlayer($('#main').find('.video'), {
-            vid: '155776473',
-            token: 'UMHWX0J_ddfY6Vvukov6zyIRN6cB7Q9wjRTYpxRIDb4VI8MpVp66qg',
+            vid: '155776473',//视频ID
+            token: 'UMHWX0J_ddfY6Vvukov6zyIRN6cB7Q9wjRTYpxRIDb4VI8MpVp66qg',//播放token
             privateDomainPrefix: 'e70655665', // 专属域名前缀 0.0.2版本开始支持
-            user_name: 'soyung',
-            user_number: '1997',
-            customReportString: 'customerStr',
-            autoplay: true,
-            loop: true,
+            user_name: 'soyung',//用户昵称
+            user_number: '1997',//用户ID
+            customReportString: 'customerStr',//自定义字符串
+            autoplay: true,//自动播放
+            loop: true,//是够循环播放
             playbackRates: [0.7, 1, 1.25, 1.5, 2], // 倍速 传入 [] 隐藏倍速列表
-            disableSeek: 0,
-            hideProgress: 0,
-            showLogo: true,
-            showWatermark: true,
-            showCurrentTimeDisplay: true,
-            showDurationDisplay: true,
-            customHourseLamp: 'test custom HourseLamp',
+            disableSeek: 0,//是否禁止拖动
+            hideProgress: 0,//是否隐藏进度条
+            showLogo: true,//显示logo
+            showWatermark: true,//显示水印
+            showCurrentTimeDisplay: true,//显示当前播放时长
+            showDurationDisplay: true,//显示总时长
+            customHourseLamp: 'test custom HourseLamp',//自定义跑马灯
             onended: function () {
                 console.log('onplayend event');
             },

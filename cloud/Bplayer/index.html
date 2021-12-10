@@ -8,20 +8,15 @@
     <link rel="shortcut icon" href="//live-cdn.baijiayun.com/video-cloud/asset/common/img/logo_02e27bba25.ico">
 
     <title>BPlayer Demo</title>
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-    <script src="https://live-cdn.baijiayun.com/bplayer/1.1.5/bplayer.js"></script>
-    <script src="https://live-cdn.baijiayun.com/bplayer/1.1.5/dep/ffplayer.js"></script>
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            background-color: #000;
-        }
 
-        @media (max-width: 640px) {
-            #demo-wrap {
-                height: unset;
-            }
+    <!-- 如需兼容IE 11 需引入以下js（IE11 以下不支持播放） -->
+    <!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
+    <!-- 引入js 文件 -->
+    <script src="https://live-cdn.baijiayun.com/bplayer/1.1.8/bplayer.js"></script>
+    <script src="https://live-cdn.baijiayun.com/bplayer/1.1.8/dep/ffplayer.js"></script>
+    <style>
+        #player-container {
+            height: unset;
         }
 
         * {
@@ -37,7 +32,7 @@
             position: relative;
         }
 
-        #demo-wrap {
+        #player-container {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -49,66 +44,63 @@
 </head>
 
 <body>
-    <div id="demo-video"></div>
+    <!-- 播放器容器 -->
+    <div id="player-container"></div>
+    <!-- 创建播放器实例 -->
     <script>
-        var bplayer = new BPlayer({
-            container: document.getElementById('demo-video'),
-            autoplay: true,
-            poster: '',
-            volume: 0.75,
-            preload: 'meta',
-            memory: true,
+        let bplayer = new BPlayer({
+            container: document.getElementById('player-container'), // 设置播放器初始化的父容器
+            autoplay: true,//是否自动播放
             airplay: true,
-            rateList: [0.5, 0.75, 1, 1.25, 1.5, 2],
-            // 主题色，正确的颜色变量
-            theme: '#1795ff',
-            // logo {url:link}
+            memory: true, // 是否开启记忆播放
+            enableDrag: true, // 是否允许拖拽进度条
+            theme: '', // 主题色，默认值 #1795ff
+            rateList: [0.5, 0.75, 1, 1.25, 1.5, 2], // 倍速列表
             logo: {
-                url: '//img.baijiayun.com/0baijiatools/ce22cfe3039dcf05322d97de03d822b8/logo.png',
+                url: '', // logo 图片地址
+                link: '' // logo 点击跳转地址
             },
+            preload: 'meta', // 预加载，推荐设置 meta
+            volume: 0.75, // 默认音量设置 0 - 1
+            // 插件 不需要的插件可以删除
             plugins: {
                 // 字幕
                 subtitle: {
-                    // source of subtitle
-                    url: '',
-                    // color
-                    color: '#fff',
-                    // font-size
-                    fontSize: 18, // or '18px'
-                    // bottom: distance to bottom
-                    bottom: 64, // or 36
+                    url: '', // 字幕链接
+                    color: '', // 字幕颜色
+                    fontSize: 18, // 字幕字体大小单位px
+                    bottom: 64, // 距离播放器底部的距离 单位px
                 },
-                // 跑马灯
+                // 跑马灯: 
                 marquee: {
-                    rollDuration: 10,
-                    blinkDuration: 10,
-                    type: 1,
-                    displayMode: 'roll',
-                    count: 2,
-                    fontOpacity: 1,
-                    backgroundOpacity: 1,
-                    position: 'random',
-                    color: '#fff',
-                    fontSize: 20, // or '20px'
-                    value: '正在观看百家云点播视频',
+                    rollDuration: 10, // 滚动间隔时长 单位秒
+                    blinkDuration: 10, // 闪烁间隔时长 单位秒
+                    type: 1, // 1 读取value设置的固定值 2 读取 user.name 昵称 
+                    displayMode: 'roll', // 展示形式滚动roll 或者闪烁 blink
+                    count: 1, // 跑马灯单双数 1 单数 2 双数
+                    fontOpacity: 1, // 跑马灯透明度 0 - 1
+                    backgroundOpacity: 1, // 跑马灯背景透明度 0 - 1
+                    position: 'random', // 跑马灯位置 random 随机 top 顶部 bottom 底部
+                    color: '#fff', // 跑马灯颜色
+                    fontSize: 20, // 跑马灯字体大小 单位px
+                    value: '100001用户正在观看' // 跑马灯固定值
                 },
                 // 水印
                 waterMark: {
-                    url: 'https://live-cdn.baijiayun.com/homepage/asset/frontend/common/img/logo-blue_3dd169c315.png',
-                    width: 120, // or '120px'
-                    height: 40, // or '40px'
-                    opacity: 0.8,
-                    // top-left || top-right || bottom-left || bottom-right
-                    position: 'top-left',
-                },
+                    url: 'https://live-cdn.baijiayun.com/homepage/asset/frontend/common/img/logo-blue_3dd169c315.png', // 水印图片地址
+                    width: 120, // 水印宽度 单位px
+                    height: 40, // 水印高度 单位px
+                    opacity: 0.8, // 透明度 0 - 1
+                    position: 'top-left' // 水印可设置四个角落定位 top-left || top-right || bottom-left || bottom-right
+                }
             },
-            vid: '156406197',
-            token: 'Nrpg-IJI8F4GQwwX1C0eIoxVDciDCSUgFw9Eke32Fe2C_KexWHYSaTG5JtrxIFp-',
-            env: '',
+            vid: '159824474', // 百家云后台视频id 
+            token: 'UuHo3PE4d7fEV4hhSJUmEJZxAHl_JdC7WwOHGjNoHjAQf2ZpMxPgaDG5JtrxIFp-', // 视频id 对应token
+            env: '70655665',
             user: {
-                name: 'test-demo',
-                number: '123',
-            },
+                name: 'soyung', // 观看的学员用户名
+                number: '100001' // 观看的学员number
+            }
         })
     </script>
 </body>

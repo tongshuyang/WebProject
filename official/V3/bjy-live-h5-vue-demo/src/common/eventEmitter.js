@@ -1,0 +1,1 @@
+export const DOCUMENT_FULLSCREEN_CHANGE = 'demo_document_fullscreen_change'
